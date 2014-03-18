@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fi.metropolia.cass.main"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:name="fi.metropolia.cass.application.ApplicationContext"
+        android:icon="@drawable/cass_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/CustomTheme" >
+        <activity 
+            android:name="fi.metropolia.cass.activities.MainListActivity"
+            android:configChanges="orientation"	>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="fi.metropolia.cass.activities.FileExplorerActivity" >
+        </activity>
+        <activity 
+            android:name="fi.metropolia.cass.activities.SwipeActivity" 
+            android:configChanges="orientation"	>
+        </activity>
+        <activity android:name="fi.metropolia.cass.activities.PrefActivity" >
+        </activity>
+    </application>
+
+</manifest>

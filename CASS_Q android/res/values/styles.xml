@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="themeDialogCustom" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowTitleStyle">@style/dialogTitle</item>
+    </style>
+
+    <style name="dialogTitleText" parent="@android:style/TextAppearance.WindowTitle">
+        <item name="android:textSize">18.0dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="dialogTitle">
+        <item name="android:textAppearance">@style/dialogTitleText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/border_dialog_title</item>
+    </style>
+
+    <style name="themeAboutCustom" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="HeaderBackground">
+        <item name="android:background">@color/orange</item>
+    </style>
+
+    <style name="CustomTheme" parent="android:Theme">
+        <item name="android:windowTitleSize">48dip</item>
+        <item name="android:windowTitleBackgroundStyle">@color/transparent</item>
+    </style>
+
+</resources>

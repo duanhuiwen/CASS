@@ -1,0 +1,30 @@
+<?php
+	require_once "../settings/dbsettings.php";
+	require_once("../common/inf_ChildObjectOps.php");
+	require_once("../classes/SQL-IO/SQLQueryer.php");
+	require_once("../classes/SQL-IO/QuestionSQLQueryer.php");
+	require_once("../classes/SQL-IO/ResearchSQLQueryer.php");
+	require_once("../classes/SQL-IO/QuerySQLQueryer.php");
+	require_once("../classes/SQL-IO/LogSQLQueryer.php");
+	require_once("../classes/SQL-IO/UserSQLQueryer.php");
+	require_once("../classes/BusinessLogic/DatabaseWriteable.php");
+	require_once("../classes/BusinessLogic/Research.php");
+	require_once("../classes/BusinessLogic/Query.php");
+	require_once("../classes/BusinessLogic/Question.php");
+	require_once("../classes/BusinessLogic/LocalUserHandler.php");
+	require_once("../common/EventLogger.php");
+	require_once("../common/customError.php");
+	require_once("../functionality/listResearch.php");
+	require_once("../functionality/listUsers.php");
+	require_once("../classes/BusinessLogic/XMLAggregator.php");
+	require_once("../classes/BusinessLogic/User.php");
+    require_once("../classes/SQL-IO/AnswerSQLQueryer.php");
+	require_once("../classes/BusinessLogic/Answer.php");
+	require_once("../classes/SQL-IO/SubjectSQLQueryer.php");
+	require_once("../classes/BusinessLogic/Subject.php");
+	require_once("../classes/File-IO/FileIO.php");
+	require_once("../classes/File-IO/FileIOHandler.php");
+	require_once("../classes/File-IO/DBFileIO.php");
+	require_once("../classes/File-IO/DiskFileIO.php");
+	require_once("../functionality/utilities.php");
+?>

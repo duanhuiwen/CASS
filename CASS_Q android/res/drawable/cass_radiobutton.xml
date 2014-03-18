@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/radio_selector">
+
+    <item android:drawable="@drawable/cass_radio_checked" android:state_checked="true" android:state_enabled="true" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/cass_radio_unchecked" android:state_checked="false" android:state_enabled="true" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/cass_radio_checked_focused" android:state_checked="true" android:state_enabled="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/cass_radio_unchecked_focused" android:state_checked="false" android:state_enabled="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/cass_radio_unchecked" android:state_checked="false" android:state_enabled="true"/>
+    <item android:drawable="@drawable/cass_radio_checked" android:state_checked="true" android:state_enabled="true"/>
+
+</selector>

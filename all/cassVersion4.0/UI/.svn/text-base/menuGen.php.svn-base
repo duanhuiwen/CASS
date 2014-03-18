@@ -1,0 +1,36 @@
+<?php
+class MenuGenerator{
+	
+	function Mainmenu(){
+		echo "<div class=\"menutitle\"><div class=\"titletext\"> Main Menu  </div></div>";
+		echo "<div class=\"menuitem\"><a href=\"./index.php\"> >> Home </a></div>";
+		echo "<div class=\"menuitem\"><a href=\"./index.php?action=logout\"> >> Logout </a></div>";
+	}	// end of Mainmenu function
+	
+	function AdminMenu($admin, $owner){
+		echo "<div class=\"menutitle\"><div class=\"titletext\"> Administration</div></div>";
+		echo "<div class=\"menuitem\"><a href=\"./adduser.php\"> >> Add new user </a> </div>";
+		if($owner==1){
+			echo "<div class=\"menuitem\"><a href=\"./addResearch.php\"> >> Add new Research </a> </div>";
+		}
+	}	// end of AdminMenu function
+
+	function Researchmenu($id, $admin){
+		echo "<div class=\"menutitle\"><div class=\"titletext\"> Research </div></div>";
+		echo "<div class=\"menuitem\"><a href=\"./displayResearch.php?id=$id\"> >> Research Main</a> </div>";						
+		if($admin == true){
+			echo "<div class=\"menuitem\"><a href=\"./createQuery.php?id=$id\"> >> Add new Query</a> </div>";
+			echo "<div class=\"menuitem\"><a href=\"./addrights.php?id=$id\"> >> Edit user rights</a> </div>";
+			echo "<div class=\"menuitem\"><a href=\"./addnsubjects.php?id=$id\"> >> Add new respondents</a></div>";
+			echo "<div class=\"menuitem\"><a href=\"./addBtIdAll.php?id=$id\"> >> Set Bluetooth id</a> </div>";
+		}
+	}	// end of Researchmenu function
+	
+	function SuperAdminMenu($superadmin){
+		echo "<div class=\"menutitle\"><div class=\"titletext\"> Super Admin</div></div>";
+		echo "<div class=\"menuitem\"><a href=\"./admin.php\"> >> Admin page </a> </div>";
+	}	// end of SuperAdminMenu function
+	
+	
+}
+?>

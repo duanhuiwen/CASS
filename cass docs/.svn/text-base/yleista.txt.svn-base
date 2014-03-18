@@ -1,0 +1,68 @@
+QUESTION:
+   number: kysymyksen järjestysnumero
+   types: kysymyksen tyyppi
+	1: Open text
+	2: Open number
+	3: Sound
+	4: Multiple choise[numeroarvo]
+	5: Super
+	6: Comment
+	7: Photo
+	8: Video
+	9: Slider[numeroarvo]
+
+   catogory: kysymyskategoria
+	0: ei mikään kategoria,kysymys näkyy aina
+
+   superOf: numero, joka kertoo minkä kategorian superkysymys on.[-1 ei minkään]
+
+PERSONAL VARIABLE: max 10
+
+   privateVAr: joku henkilökohtainen muuttuja[pistetään ennen kyselyä]
+   number: tärkeysjärjestys
+
+RESEARCH:
+	
+   DataCollectionMethod:
+	1: Fixed Interval (?) *voi olla monta eri kyselyä samana päivänä
+	2: Event Contigent (Käyttäjän aktivoima)  * vain yhtä kyselyä moneen kertaan
+	3: Random (Randomilla tietty määrä kyselyitä päivän aikana) * vain yhtä kyselyä moneen kertaan
+	4: Fixed time (Aina tietyin välein ja TÄRKEIN SAADA TOIMIMAAN!!!) *voi olla monta eri kyselyä samana päivänä
+
+	Kirjota FileIO:t kuntoon!
+	Kirjota tekstitiedoston kirjotus vastauksista (mailissa excel-tiedosto 	malli) - jos vastaus sisältää mediaa,niin tee linkit niille
+	tbl_Mediassa filepath on polku missä sijaitsee levylle tallennetut datat
+
+	- surveyCount pitää saada jotenkin laskettua
+	- Puhelin antaa vain tutkimuksen ja henkilö_id:n,jos henkilöllä monta
+	  eri kyselyä samasssa tutkimuksessa kanssa,mistä tietää mikä sille annetaan.
+		* surveyCount varmaan avain
+	- slider arvot,skaala? miten kerrotaan ne xml:ssä
+	- Mikä on subjektin bt_id?
+		* Bluetooth id,sillä tunnistetaan käyttäjä
+
+ehdotuksia:
+
+	Jos puhelimessa multiple choisen optioissa myös o_id,niin ei tartte
+	pelata merkkijonojen kanssa.luetettavampi ja vastaukseksi tietokantaan
+	voidaan laittaa vain sen option id.
+
+KESÄN TO DO LIST:
+
+	- skandit
+	- Käyttäjien poisto
+	- Tutkimukset lukkoon jos on jo alkanut,tai ainakin joku varmistus että onko varma että
+	  haluaa muokata,jos se on jo meneillään
+	- Slider arvot puhelimelle
+		* Slider: jos type=9 => option taulussa 1=min.arvo 2=max.arvo 3=skaala
+		* Selvitä miten puhelin tekee xml:stä sliderin!!!
+	- Kysymysten optioiden javascriptit kuntoon
+	- Hoida txtAnswer
+	- Admin osio -> käyttäjien poistot,oikeuksien hallinta,force logout yms.
+	- Lukkoon muokkauksen ajaksi osiot,esim kysymysten muokkaukseen ei montaa ihmistä kerralla
+	- Kryptaus
+	- Mediafilejen katselu -> nappi josta dumppina kaikki käyttäjälle
+	- Puhelimen ja serverin yhteistyö toimintaan,datan pushaus
+	- subjekteista jotain käyrää (?)
+	- Logit että tietää missä virheitä,auttaa kehittäjää löytämään käyttäjien ongelmiin ratkaisut
+	- Turvallisuus kuntoon

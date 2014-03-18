@@ -1,0 +1,104 @@
+####NON PRODUCTION EXAMPLES####
+##TEMPORARY##
+SELECT r.research_name, r.research_id FROM
+`tbl_research` as r, 
+`tbl_user_rights` as ur 
+WHERE
+r.research_id=ur.research_id AND
+ur.UID = 1;
+
+
+##INSERTING ENCRYPTED DATA###
+
+INSERT INTO `tl_test` VALUES(AES_ENCRYPT('data', 'avain'), 11);
+
+##SELECTING AND DECRYPTING DATA###
+
+
+SELECT AES_DECRYPT(txt, 'avain') FROM `tl_test` WHERE txt=(AES_ENCRYPT('data', 'avain'));
+
+
+
+###The MYSQL server max_allowed_packet size must be set to allow sending of files of suitable size, eg. 25mb####
+
+
+#####DDL#####
+#Creating tbl_research#
+CREATE TABLE `tbl_research` (
+`research_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`research_name` VARCHAR( 30 ) NOT NULL UNIQUE,
+`research_descr` VARCHAR( 255 ) NOT NULL,
+`data_collection_method` INT NOT NULL 
+) ENGINE = MYISAM ;
+
+
+#Creating tbl_query#
+CREATE TABLE `tbl_query` (
+`query_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`study_id` INT NOT NULL COMMENT 'references tbl_study.study_id',
+`xml_file` MEDIUMTEXT NOT NULL
+) ENGINE = MYISAM ;
+
+
+
+#Creating tbl_question#
+CREATE TABLE `tbl_question` (
+`question_id` INT NOT NULL AUTO_INCREMENt,
+`query_id` INT NOT NULL ,
+`question` VARCHAR( 70 ) NOT NULL ,
+`question_type` INT NOT NULL ,
+`number` INT NOT NULL ,
+PRIMARY KEY ( `question_id` )
+) ENGINE = MYISAM ;
+
+
+##OK CREATING tbl_user_rights###
+ CREATE TABLE `tbl_user_rights` (
+`research_id` INT NOT NULL ,
+`UID` INT NOT NULL ,
+`subject` BOOL NOT NULL ,
+`researcher` BOOL NOT NULL ,
+`admin` BOOL NOT NULL
+) ENGINE = MYISAM CHARACTER SET latin1 COLLATE latin1_general_ci 
+
+###OK Creating tbl_auth###
+CREATE TABLE `tbl_auth` (
+`UID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`password` CHAR( 32 ) NOT NULL ,
+`su_admin` BINARY NOT NULL ,
+`username` VARCHAR( 64 ) NOT NULL
+) ENGINE = MYISAM ;
+
+###END DDL####
+
+
+
+SELECTING QUESTIONS OF A PARTICULAR QUERY
+SELECT 
+study_id,
+study_name,
+query_id,
+question,
+question_type,
+number
+FROM
+tbl_question as question,
+tbl_query as query,
+tbl_study as study
+WHERE
+question.query_id=query.query_id AND
+
+#Create a new research#
+
+INSERT INTO `test`.`tbl_research` (`research_id` ,`research_name`, `research_descr` ,`data_collection_method`) VALUES (NULL , 'Kolmas tutkimus', 'Kuvaus', '2');
+
+#Select research name based on ID###
+SELECT  `research_name` FROM `tbl_research` WHERE `research_id` =1 LIMIT 1;
+
+
+
+CREATE TABLE `tbl_research` (`research_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`research_name` VARCHAR( 30 ) NOT NULL UNIQUE,`research_descr` VARCHAR( 255 ) NOT NULL,`data_collection_method` INT NOT NULL ) ENGINE = MYISAM ;
+
+
+
+ SELECT `question` FROM `tbl_question` WHERE `question_id` =1 LIMIT 0 , 30 ;

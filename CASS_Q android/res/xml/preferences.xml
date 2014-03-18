@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="General" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_mode"
+            android:summary="Hide answered questions"
+            android:title="Hide mode" >
+        </CheckBoxPreference>
+
+        <EditTextPreference
+            android:key="token"
+            android:maxLength="12"
+            android:summary="Personal identification number"
+            android:title="Edit token" >
+        </EditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Server" >
+        <EditTextPreference
+            android:defaultValue="http://mielikki.mobile.metropolia.fi/cass/develop/MobileIO/XMLGen.php"
+            android:key="question_server"
+            android:title="Edit question server" >
+        </EditTextPreference>
+        <EditTextPreference
+            android:defaultValue="http://mielikki.mobile.metropolia.fi/cass/develop/MobileIO/mobileanswer.php"
+            android:key="answer_server"
+            android:title="Edit answer server" >
+        </EditTextPreference>
+        <EditTextPreference
+            android:defaultValue="http://mielikki.mobile.metropolia.fi/cass/develop/MobileIO/mobileMediaFiles.php"
+            android:key="media_server"
+            android:title="Edit media server" >
+        </EditTextPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
+
+<!-- 
+android:defaultValue="http://23.23.93.172/cass/MobileIO/mobileMediaFiles.php"
+android:defaultValue="http://23.23.93.172/cass/MobileIO/mobileanswer.php"
+android:defaultValue="http://23.23.93.172/cass/MobileIO/XMLGen.php"
+
+android:defaultValue="http://mielikki.mobile.metropolia.fi/cass/develop/MobileIO/XMLGen.php"
+android:defaultValue="http://mielikki.mobile.metropolia.fi/cass/develop/MobileIO/mobileanswer.php"
+android:defaultValue="http://mielikki.mobile.metropolia.fi/cass/develop/MobileIO/mobileMediaFiles.php"
+-->
+
+
+
+
+
+

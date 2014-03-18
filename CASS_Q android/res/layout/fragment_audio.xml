@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_swipe"
+        android:orientation="vertical" >
+
+        <!-- Displays the question -->
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <!-- Creates chronometer to measure the time -->
+        <Chronometer
+            android:id="@+id/chrono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <!-- Holds the views for playing the recorded audio -->
+        <RelativeLayout
+            android:id="@+id/play_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/border_audio"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:visibility="gone" >
+
+            <!-- Plays the recorded audio -->
+            <Button
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_audio_play" />
+
+            <!-- Shows the progress of the audio -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/play_time"
+                android:layout_toRightOf="@+id/play"
+                android:fadingEdge="vertical"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:progress="0"
+                android:progressDrawable="@drawable/cass_audiobar" />
+
+            <!-- Displays the current time of the audio -->
+            <TextView
+                android:id="@+id/play_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <!-- Holds the views for recording audio -->
+        <RelativeLayout
+            android:id="@+id/record_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp" >
+
+            <!-- Records audio -->
+            <Button
+                android:id="@+id/record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_audio_record" />
+
+            <!-- Displays the current time of the audio -->
+            <TextView
+                android:id="@+id/record_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/record"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <!-- Displays the position in the survey -->
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="fill_vertical|center_horizontal"
+            android:background="@color/transparent"
+            android:gravity="bottom|center"
+            android:paddingBottom="15dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</ScrollView>

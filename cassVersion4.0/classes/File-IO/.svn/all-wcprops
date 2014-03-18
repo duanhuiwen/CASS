@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/File-IO
+END
+DBFileIO.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/File-IO/DBFileIO.php
+END
+DiskFileIO.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/File-IO/DiskFileIO.php
+END
+FileIOHandler.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/File-IO/FileIOHandler.php
+END
+FileIO.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/6543/wp6/CASS-Q/dev-branch/classes/File-IO/FileIO.php
+END

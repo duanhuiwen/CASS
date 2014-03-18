@@ -1,0 +1,34 @@
+Add visualization checkbox changed&added files
+
+
+added:
+
+Query.php
+
+$isVisualize
+
+
+
+
+
+
+
+
+
+	
+QuerySQLQuery.php
+function createQuery
+
+
+
+
+manipQuery.php
+<div id="visualize">
+  <?php 
+  
+  include("../content/visualizationCheckBox.php");
+
+?>	
+
+</div>
+</div>

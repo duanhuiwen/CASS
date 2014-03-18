@@ -1,0 +1,21 @@
+<?php
+require_once("MDB2.php");
+$mdb_type ='mysql';
+$mdb_passwd ='-pwd-'; 
+$mdb_usn ='-usr-';
+$mdb_server='-server-';
+$mdb_db ='-db-';
+$enc=true;
+$enc_key="glxBllt"; //Only needed if $enc == true;
+$files2db='-media-';
+//The next 4 are needed if the previous one is set to false
+ $mediaFolderPath="../MediaFiles/";
+ $pictureFolder="picture/";
+ $videoFolder="video/";
+ $soundFolder="sound/";
+//The rest is always needed, hands off!
+$mdb2 =& MDB2::connect("$mdb_type://root@localhost/cass");
+if (PEAR::isError($mdb2)) {
+    die($mdb2->getMessage());
+}
+?>

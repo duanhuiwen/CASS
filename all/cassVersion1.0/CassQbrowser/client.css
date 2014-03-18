@@ -1,0 +1,133 @@
+/* PC SCREEN*/
+@media screen{
+body {
+	background-color: #4e5357;
+	font-size:100%;
+	font-family: "Trebuchet MS", Lucida, Verdana, Sans-Serif;
+	color: #564b47;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+}
+
+h1 {
+	color: #9A1212;
+	font-size: 1em;
+	margin: 0px;
+}
+
+h2 {
+	font-size:0.875em;
+	color: #9A1212;
+	margin:0.5em;
+}
+
+input {
+	color: #000000;
+	background: #eeeeee;
+	border: 1px solid #000000;
+}
+
+p{
+	font-size: 0.625em;
+	margin: 0px;
+}
+
+#wrapper {
+	width: 761px;
+	background-color: #f5f2e7;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
+}
+
+#banner {
+	height: 236px;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+}
+
+#footer {
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+	height: 19px;
+	text-align: center;
+	border: 1px solid #999999;
+	background-color: #EEEEEE;
+	text-align: right;
+	font-size: 9px;
+	margin-top: 5px;
+	color: #666666;
+}
+
+}
+
+/* MOBILE SCREEN */
+@media handheld{
+
+body {
+	background-color: #4e5357;
+	font-size: 100%;
+	font-family: "Trebuchet MS", Lucida, Verdana, Sans-Serif;
+	color: #564b47;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+}
+
+h1 {
+	color: #9A1212;
+	font-size: 1em;
+	margin: 0px;
+}
+
+h2 {
+	font-size:0.875em;
+	color: #9A1212;
+	margin:0.5em;
+}
+
+input {
+	color: #000000;
+	background: #eeeeee;
+	border: 1px solid #000000;
+}
+
+p{
+	font-size: 0.625em;
+	margin: 0px;
+}
+
+
+#wrapper {
+	width: 240px;
+	background-color: #f5f2e7;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
+}
+
+#banner {
+	height: 75px;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+}
+
+#footer {
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+	height: 19px;
+	text-align: center;
+	border: 1px solid #999999;
+	background-color: #EEEEEE;
+	text-align: right;
+	font-size: 9px;
+	margin-top: 5px;
+	color: #666666;
+}
+
+}

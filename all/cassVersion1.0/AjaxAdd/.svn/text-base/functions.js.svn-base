@@ -1,0 +1,1185 @@
+/* In this file you can find all the javascript functions that are used throuhout the
+ * pages to conduct various tasks. Mostly about validating the different types of
+ * input data.  */
+var addNewHtml = '';
+var lastChanged ='';
+
+/* Checking if the input is numeric.
+ */
+function IsNumeric(sText){   
+   var ValidChars = "0123456789.";
+   var IsNumber=true;
+   var Char;
+
+   for (i = 0; i < sText.length && IsNumber == true; i++) { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1){
+		IsNumber = false;
+      }
+   }
+   return IsNumber;   
+}
+
+/* Checking if the number of options of a question is appropriate.
+ * After that calling the createOptions() function.
+ */
+function options(x){	
+	if (!IsNumeric(x)){
+			document.getElementById('num').value="";		
+			alert("This is not a number");
+		}else{ 
+			
+			if(x>10){
+				if (confirm("Inputting a large number (<10) may result in a long wait or bad usability in the phone, do you want to continue?")) { 
+					createOptions(x);
+				}else{
+					document.getElementById('num').value="";
+				}
+			}else{
+					createOptions(x);
+			}				
+		}
+}
+	
+/* Creates options for the multiple choice and super questions.
+ */
+function createOptions(num){
+	var qtype;	
+	for(var i=0;i<document.getElementsByName('type').length;i++){
+			if(document.getElementsByName('type')[i].checked){
+				qtype = document.getElementsByName('type')[i].value;
+			}
+		}
+		
+	/* This would be easier with jQuery:
+	 * e = $("div[name=qoption]").length;
+	 */	
+	/*if(navigator.appName == "Microsoft Internet Explorer") {
+		var e=0;
+		for(var j=0;j<document.getElementsByTagName('div').length;j++){
+			if(document.getElementsByTagName('div')[j].getAttribute('name')=="qoption"){
+				e = e+1;
+			}
+		}
+	}else{
+		var e = document.getElementsByName('qoption').length;
+	}*/
+	// Stores the number of all the divs with the attribute name=qoption
+	var e = $("div[name=qoption]").length;
+			
+	if(num!=null && qtype!=null){
+		if(qtype == 4){
+			if(!document.getElementById('multipleCheckBox')){
+				var htmltxt2 = ('<div id="multipleCheckBox" name="mulCheckBoxDiv"><input type="checkbox" id="mulCheckBoxInput" name="mulCheckBoxInput" /> multi ans.</div>');
+				document.getElementById('q_middle').innerHTML += htmltxt2;
+			}
+		}
+		if(num>e){
+				for(var i=e+1;i<=num;i++){	
+					if(qtype == 5){				
+						var htmltxt = (
+  							'<div id="qoption'+i+'" name="qoption"><br />'+i+'.<input type="text" id="option'+i+'" name="option'+i+'" value="option'+i+'" size="20" maxlength="40"/> '+
+  							'<div id="soption'+i+'">Super of: <input type="text" id="superof'+i+'" name="superof'+i+'" value="" size="2" maxlength="2"/></div></div>');
+  							document.getElementById('q_middle').innerHTML += htmltxt;
+					}else{
+						if(qtype == 4){
+							 var htmltxt = ('<div id="qoption'+i+'" name="qoption"><br />'+i+'.<input type="text" id="option'+i+'" name="option'+i+'" value="option'+i+'" size="20" maxlength="40"/><div id="soption'+i+'"></div></div>');
+							 document.getElementById('q_middle').innerHTML += htmltxt;
+						}else{
+							alert('error');
+						}		
+					}
+				}
+		}else{
+			if(num<e){
+				for(var i=e;i>num;i--){
+					var t = document.getElementById('qoption'+i);
+					t.parentNode.removeChild(t);				
+				}
+			}
+		}
+	}
+}
+
+/* Creates options for a Slider question.
+ */
+function createSliderOptions(qtype){
+	var htmltxt = 'Values:';		
+	if(qtype != null){		
+			if(qtype == 9){				
+  				htmltxt += ('<br /><table><tr><td>Min Label: </td><td><input type="text" id="slider1" name="slider1" value="" size="15" maxlength="50"/></td></tr>'+
+  					'<tr><td>Min value:</td><td><input type="text" id="slider2" name="slider2" value="" size="3" maxlength="3"/></td></tr> '+
+  					'<tr><td><br /></td></tr><tr><td>Max Label:</td><td><input type="text" id="slider3" name="slider3" value="" size="15" maxlength="50"/></td></tr>'+
+  					'<tr><td>Max value:</td><td><input type="text" id="slider4" name="slider4" value="" size="3" maxlength="3"/></td></tr></table>'+
+  					'<br />The scale is 1<input type="hidden" id="slider5" name="slider5" value="1" /><br /> '); 		// Was: Scale: type="text" size="3" maxlength="3", only scale 1 is imlemented on the client side	
+			}else{
+				alert('error');	
+			}
+	//document.getElementById('q_middle2').innerHTML = htmltxt;
+	$('#q_middle2').html(htmltxt);
+	}else{
+			alert('Please select question type');
+	}
+}
+
+/* Creates options for an Open number question. 
+ */
+function createOpenNumberOptions(qtype){
+	var htmltxt = 'Values:';
+		
+	if(qtype != null){		
+			if(qtype == 2){				
+  				htmltxt += ('<table><tr><td>Min:</td><td><input type="text" id="open1" name="open1" value="" size="3" maxlength="3"/></td></tr>'+
+  					'<tr><td>Max:</td><td><input type="text" id="open2" name="open2" value="" size="3" maxlength="3"/></td></tr></table>'); 					
+			}else{
+				alert('error');	
+			}
+	$('#q_middle2').html(htmltxt);
+	}else{
+			alert('Please select question type');
+	}
+}
+
+
+function showAdd(qid) { //This displays the add item form functionality. 
+	clientSideInclude('addnew', '../AjaxAdd/addQuestion.php?id='+qid);
+}
+
+
+function showEdit(qid) { //This displays the add item form functionality. 
+	clientSideInclude('addnew', '../AjaxAdd/modifyQuestion_frm.php?id='+qid);
+}
+
+
+function clientSideInclude(id, url) { 	//This pushes stuff into the client browser window, can be used for displaying 
+  	var req = false;						//HTML in a already displayed page.
+  	// For Safari, Firefox, and other non-MS browsers
+	
+	if (!$('#'+id)) {
+ 		 alert("Bad id " + id +
+   		"passed to clientSideInclude." +
+   		"You need a div or span element " +
+   		"with this id in your page.");
+  		return;
+ 	}
+ 	try{
+ 		$.get(url,function(data){
+ 			//alert(data);
+ 			$('#'+id).html(data);
+ 		});
+ 	}catch(e){
+ 		alert(dump(e));
+ 	}
+}
+
+
+/**
+* Function : dump()
+* Arguments: The data - array,hash(associative array),object
+*    The level - OPTIONAL
+* Returns  : The textual representation of the array.
+* This function was inspired by the print_r function of PHP.
+* This will accept some data as the argument and return a
+* text that will be a more readable version of the
+* array/hash/object that is given.
+*/
+function dump(arr,level) {
+	var dumped_text = "";
+	if(!level) level = 0;
+
+		//The padding given at the beginning of the line.
+		var level_padding = "";
+		for(var j=0;j<level+1;j++) level_padding += "    ";
+			if(typeof(arr) == 'object') { //Array/Hashes/Objects
+ 				for(var item in arr) {
+  					var value = arr[item];
+  					if(typeof(value) == 'object') { //If it is an array,
+   						dumped_text += level_padding + "'" + item + "' ...\n";
+   						dumped_text += dump(value,level+1);
+  					} else {
+  						dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+  					}
+				}
+			} else { //Stings/Chars/Numbers etc.
+ 				dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
+			}
+	return dumped_text;
+} 
+
+// Never called
+function getAjaxObject() {
+	var ajaxRequest;
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	return ajaxRequest;
+}
+
+/* This is never called. The coneversion is made on the server side with the getType()
+ * function that is in Answer class (Answer.php).
+ */
+function getType(type) {
+	var disStr = "";
+	switch(type) { //Note: This conversion also exists on PHP code, at least in getEvents.php
+		case "1": disStr = "Open text"; break;
+		case "2": disStr = "Open number"; break;
+		case "3": disStr = "Sound"; break;
+		case "4": disStr = "Multiple choiceX"; break;
+		case "5": disStr = "Super"; break;
+		case "6": disStr = "Comment"; break;
+		case "7": disStr = "Photo"; break;
+		case "8": disStr = "Video"; break;
+		case "9": disStr = "Slider"; break;
+		case "10": disStr = "Multiple answer"; break;
+	}
+	return disStr;
+}
+
+// Browser Support Code
+/* Other functions call this funxtion in functions.js
+ * Adds a new question.
+ */
+function addEvent(qid){	
+	try{
+		var question = document.getElementById('question').value;
+		for(var i=0;i<document.getElementsByName('type').length;i++){
+			if(document.getElementsByName('type')[i].checked){
+				var qtype = document.getElementsByName('type')[i].value;
+			}
+		}
+		var qcat = document.getElementById('category').value;
+	
+		var queryString = "?";
+		//if multiple choice question
+		if(qtype == 4){
+			var num = document.getElementById('num').value;
+			if(document.getElementById('mulCheckBoxInput').checked){
+				qtype = 10;
+			}
+			for(var j=1;j<=num;j++){
+				var option = 'option'+j;
+				queryString +="&option"+j+"="+document.getElementById(option).value;
+			}
+			queryString +="&num="+num;
+		}
+		//if multiple and super
+		if(qtype == 5){
+			var num = document.getElementById('num').value;
+			for(var j=1;j<=num;j++){
+				var option = 'option'+j;
+				var supe = 'superof'+j;
+				queryString +="&option"+j+"="+document.getElementById(option).value;
+				queryString +="&superof"+j+"="+document.getElementById(supe).value;
+			}
+			queryString +="&num="+num;
+		}
+		if(qtype == 9){
+			for(var j=1;j<=5;j++){
+				var option = 'slider'+j;
+				queryString +="&slider"+j+"="+document.getElementById(option).value;
+			}
+		}
+		if(qtype == 2){
+			for(var j=1;j<=2;j++){
+				var option = 'open'+j;
+				queryString +="&open"+j+"="+document.getElementById(option).value;
+			}
+		}
+	
+
+	} catch (e){
+		alert(dump(e));
+		alert("Some trouble, please go flush the toilet.");
+	}
+	queryString += "&question=" + question + "&questionType=" + qtype + "&questionCat=" + qcat +"&queryid=" + qid;
+	$.get("../AjaxAdd/addEvent.php"+queryString,function(data){
+			cancelAdd();
+			$("#eventList").html(data);
+			$("#questionList").sortable({update:updateList,containment:'parent',delay:200});
+	});
+}
+/* It is called in the validateAddque() funtion.
+ * It modifies already existing question.
+ */
+function editEvent(qid){
+	var temp = new Array();
+	temp = qid.split(';');
+	var qid = temp[0];
+	var queryID = temp[1];
+	
+	try{
+		var question = document.getElementById('question').value;
+		for(var i=0;i<document.getElementsByName('type').length;i++){
+			if(document.getElementsByName('type')[i].checked){
+				var qtype = document.getElementsByName('type')[i].value;
+			}
+		}
+		var qcat = document.getElementById('category').value;
+		var queryString = "?";
+		queryString += "&question=" + question + "&questionType=" + qtype + "&questionCat=" + qcat +"&questionid=" + qid;
+		//if multiple choice question
+		if(qtype == 4){
+			var num = document.getElementById('num').value;
+			if(document.getElementById('mulCheckBoxInput').checked){
+				qtype = 10;
+			}
+			for(var j=1;j<=num;j++){
+				var option = 'option'+j;
+					queryString +="&option"+j+"="+document.getElementById(option).value;
+			}
+			queryString +="&num="+num;
+		}
+		//if multiple and super
+		if(qtype == 5){
+			var num = document.getElementById('num').value;
+			for(var j=1;j<=num;j++){
+				var option = 'option'+j;
+				var supe = 'superof'+j;
+				queryString +="&option"+j+"="+document.getElementById(option).value;
+				queryString +="&superof"+j+"="+document.getElementById(supe).value;
+			}
+			queryString +="&num="+num;
+		}
+		//if slider
+		if(qtype == 9){
+			var num = 5;
+			for(var j=1;j<=num;j++){
+				var slider = 'slider'+j;
+				if(document.getElementById(slider).value!=null){
+					queryString +="&slider"+j+"="+document.getElementById(slider).value;
+				}else{
+					if(j==1){
+						alert('min value is empty!');
+					}
+					if(j==2){
+						alert('max value is empty!');
+					}
+					if(j==3){
+						alert('scale value is empty!');
+					}
+				}
+			}
+			queryString +="&num="+num;
+		}
+		//if open number
+		if(qtype == 2){
+			var num = 2;
+			for(var j=1;j<=num;j++){
+				var ope = 'open'+j;
+				if(document.getElementById(ope).value!=null){
+					queryString +="&open"+j+"="+document.getElementById(ope).value;
+				}else{
+					if(j==1){
+						alert('min value is empty!');
+					}
+					if(j==2){
+						alert('max value is empty!');
+					}
+				}
+			}
+			queryString +="&num="+num;
+		}
+		
+	} catch (e){
+		alert(dump(e));
+		alert("Some trouble, please go flush the toilet.");
+	}
+	queryString += "&question=" + question + "&questionType=" + qtype + "&questionCat=" + qcat +"&questionid=" + qid;
+	$.get("../AjaxAdd/addEvent.php"+queryString,function(data){
+			cancelAdd();
+			$("#eventList").html(data);
+			$("#questionList").sortable({update:updateList,containment:'parent',delay:200});
+	});
+}
+
+/* It removes a question.
+ * This function is called right from the client side.
+ */
+function removeEvent(qid){
+	var temp = new Array();
+	temp = qid.split(';');
+	var qid = temp[0];
+	var queryID = temp[1];
+	
+	try{	
+		$.get("../AjaxAdd/removeEvent.php",{id:qid},function(data){			
+				cancelAdd();
+				$("#eventList").html(data);
+				$("#questionList").sortable({update:updateList,containment:'parent',delay:200});
+		});
+	}catch(e){
+		alert("Some trouble, please go flush the toilet.");
+	}
+}
+
+// Deletes the actual content from the #addnew.
+function cancelAdd() {
+	$('#addnew').html('');
+}
+
+/* This function calls the getQuestionList.php and build up a list from the questions.
+ */
+function getEvents(qid) {
+	$.get("../AjaxAdd/getQuestionList.php", {id: qid},function(data){	// load that page, id value to be sent to the server, function to be run after the data is loaded successfully
+		$("#eventList").html(data);
+		$("#questionList").sortable({update:updateList,containment:'#events',delay:200}).disableTextSelect();
+	});
+	
+}
+
+/* This function updates the question list.
+ */
+function updateList(e,ui){
+	var list = $("#questionList").sortable( "serialize", {} );
+	var temp = list.split('&');
+	for(var i=0;i<temp.length;i++){
+		var tmp = new Array();
+		tmp = temp[i].split('=');
+		if(tmp[0]=="copy[]"){
+			var num = i+1;
+			var qid = tmp[1];
+		}	
+	}
+	var copyto = $("#eventList").data("ID");
+	if(qid!=null && num!=null){
+		$.get("../AjaxAdd/addEvent.php?"+list,{id:qid,num:num,copyto:copyto},function(data){
+			if(data!=null){
+				$("#eventList").html(data);
+				$("#questionList").sortable({update:updateList,containment:'#events',delay:200}).disableTextSelect();
+				//$("#copyQuestionList").sortable({update:updateAfterCopy,connectWith:[$('#questionList')]}).disableTextSelect();
+				//$("#copyQuestionList").sortable({connectWith:'#questionList'}).disableTextSelect();
+				$("#copyQuestionList > li").draggable({helper:'clone',connectToSortable:'#questionList'}).disableTextSelect();
+			}
+		});
+	}else{
+		$.get("../AjaxAdd/addEvent.php?"+list);
+			var juoksija = 1;
+			$("#questionList > li").each(function () {
+			var testi = $(this);
+			$('.questionNum',testi).html("Question " + juoksija++);
+		});
+	}
+}
+
+/* This function is used during the moving of the questions in the Edit Query Questions page.
+ */
+function getCopies(qid,copyto) {
+	$.get("../AjaxAdd/copyQuestionList.php", {id: qid,copyto:copyto},function(data){
+		$("#ui-tabs-5").html(data);
+		//$("#copyQuestionList").sortable({update:updateAfterCopy,connectWith:[$('#questionList')]}).disableTextSelect();
+		//$("#copyQuestionList").sortable({connectWith:'#questionList'}).disableTextSelect();
+		$("#copyQuestionList > li").draggable({helper:'clone',connectToSortable: '#questionList' }).disableTextSelect();
+	});
+}
+
+
+/* ==================================================================================
+ * Functions mostly used during question creation.
+ */
+
+
+/* It is called to unlock the user and queries and/or researches.
+ */
+function unlock(uid,id,type){
+	$.get("../AjaxAdd/unlock.php", {uid: uid,id:id,type: type},function(data){		
+		//window.close();
+	});
+}
+
+/* It copies all the questions in draggable list (right panel) to the actual query.
+ */
+function copyAll(qid,copy){
+	$.get("../AjaxAdd/addEvent.php", {copyto: qid,copyfrom:copy},function(data){
+		$("#eventList").html(data);
+		$("#questionList").sortable({update:updateList,containment:'#events',delay:200}).disableTextSelect();
+		//$("#copyQuestionList > li").draggable({helper:'clone',connectToSortable:'#questionList'}).disableTextSelect();
+	});
+}
+
+/* This function freezes the research.
+ */
+function freezeResearch(rid,usid){
+	if (confirm("Are you sure you want to lock this research? After locking research there is no way to unlock it!")) {
+		$.get("../AjaxAdd/unlock.php", {id: rid,uid:usid,action: "freeze"},function(data){
+			if(data==1){
+				window.location = '../content/displayResearch.php?id='+rid;
+			}
+		});
+	}
+}
+
+/* This function shows a border around the clicked question
+ * and calls the showEdit() function to enter into the edit mode of the question.
+ */
+function fade(id) {
+	var temp = new Array();
+	temp = id.split(';');
+	if(lastChanged != null){
+		fadeReset(lastChanged);
+	}
+	var color ='#95b8c3'; // colour of the border
+	var item;
+	if (document.getElementById) {
+		item = document.getElementById(temp[0]);
+	} else if (document.all) {
+		item = document.all(temp[0]);
+	}
+	
+	if (item && item.style) {
+		item.style.backgroundColor = color;
+		lastChanged = temp[0];
+		showEdit(id);
+	}
+}
+
+/* Calls the fadeReset() and cancelAdd() functions to delete the actual content from
+ * the editBox and deletes the border around the question in the #eventList. */   
+function fadeaway(){
+	if(lastChanged != null){
+		cancelAdd();
+		fadeReset(lastChanged);	
+	}
+}
+
+// Resets the border around the question back to white.
+function fadeReset(id){
+	var color ='#ffffff';
+	var item;
+	if (document.getElementById) {
+		item = document.getElementById(id);
+	} else if (document.all) {
+		item = document.all(id);
+	}
+	
+	if (item && item.style) {
+		item.style.backgroundColor = color;
+		var qu_id = id.substring(5);
+	}
+}
+
+// Uses the jQuery library to hide an element.
+function hideElement(id){
+	$('#'+id).hide();
+}
+
+// Uses the jQuery library to show an element.
+function showElement(id){
+	$('#'+id).show();
+}
+
+/* ==================================================================================
+ * Functions mostly used during research and query creation
+ */
+ 
+/* This function is used to call the jQuery datepicker function.
+ */
+function datepick(){
+	$('#start').datepicker({firstDay: 1,dateFormat: 'yy-mm-dd' });
+	$('#end').datepicker({firstDay: 1,dateFormat: 'yy-mm-dd' });
+}
+
+/* Used in the addResearch.php and editResearch.php.
+ * During the creation and editing process this prints the options to the client side. 
+ */ 
+function createQueryTimes(times){
+	if(document.getElementById('colmet').value==0){
+		showElement('queryAmount');
+		showElement('queryAmountInput');
+		hideElement('addr_survey2');
+		if(navigator.appName == "Microsoft Internet Explorer") {
+			var e=0;
+			for(var j=0;j<document.getElementsByTagName('div').length;j++){
+				if(document.getElementsByTagName('div')[j].getAttribute('name')=="qtimediv"){
+					e = e+1;
+				}
+			}
+		}else{
+			var e = document.getElementsByName('qtimediv').length;
+		}
+		if(times!=null){
+			if(times>e){
+					for(var i=e+1;i<=times;i++){	
+						var htmltxt = ('<div id="qtimediv'+i+'" name="qtimediv">'+i+'.Query: Hour:<select name="queryh['+i+']">');
+					for(var h=0;h<24;h++){
+						if(h<10){
+							htmltxt += ('<option value="0'+h+'">0'+h+'</option>');
+						}else{
+							htmltxt += ('<option value="'+h+'">'+h+'</option>');
+						}
+					}
+					htmltxt +=('</select>');
+					htmltxt += ('Min: <select name="querym['+i+']">');
+					for(var m=0;m<60;m++){
+						if(m<10){
+							htmltxt += ('<option value="0'+m+'">0'+m+'</option>');
+						}else{
+							htmltxt += ('<option value="'+m+'">'+m+'</option>');
+						}
+					}
+					htmltxt +=('</select><br /></div>');
+						document.getElementById('addr_survey').innerHTML += htmltxt;
+					}
+			}else{
+				if(times<e){
+					for(var i=e;i>times;i--){
+						var t = document.getElementById('qtimediv'+i);
+						t.parentNode.removeChild(t);					
+					}
+				}
+			}
+		}
+	}else if(document.getElementById('colmet').value==1){
+		showElement('queryAmount');
+		showElement('queryAmountInput');
+		hideElement('addr_survey');
+		showElement('addr_survey2');
+		if(times!=null && times!=0){
+			var htmltxt = '<b>Set Time for first query:</b> Hour: <select name="queryh">';
+			for(var h=0;h<24;h++){
+				if(h<10){
+					htmltxt += ('<option value="0'+h+'">0'+h+'</option>');
+				}else{
+					htmltxt += ('<option value="'+h+'">'+h+'</option>');
+				}
+			}
+			htmltxt +=('</select> Min: <select name="querym">');
+			for(var m=0;m<60;m++){
+				if(m<10){
+					htmltxt += ('<option value="0'+m+'">0'+m+'</option>');
+				}else{
+					htmltxt += ('<option value="'+m+'">'+m+'</option>');
+				}
+			}
+			htmltxt +=('</select><br /><br />');
+			htmltxt += ('<b>Give interval:</b> Hours:<select name="queryIntH">');
+			var biggestInt = Math.floor(24/times);
+			for(var ih=0;ih<biggestInt;ih++){
+				if(ih<10){
+					htmltxt += ('<option value="0'+ih+'">0'+ih+'</option>');
+				}else{
+					htmltxt += ('<option value="'+ih+'">'+ih+'</option>');
+				}
+			}
+			htmltxt +=('</select>');
+			htmltxt += ('Minutes: <select name="queryIntM">');
+			for(var im=0;im<60;im++){
+				if(im<10){
+					htmltxt += ('<option value="0'+im+'">0'+im+'</option>');
+				}else{
+					htmltxt += ('<option value="'+im+'">'+im+'</option>');
+				}
+			}
+			htmltxt +=('</select><br />');
+			document.getElementById('addr_survey2').innerHTML = htmltxt;
+		}
+	}
+}
+
+// Used to show the necessary settings for creating a research
+function checkColmet(){
+	if(document.getElementById('colmet').value==2 || document.getElementById('colmet').value==3){
+		hideElement('addr_survey');
+		hideElement('addr_survey2');
+		if(document.getElementById('colmet').value==2){
+			hideElement('queryAmount');
+			hideElement('queryAmountInput');
+		}else{
+			showElement('queryAmount');
+			showElement('queryAmountInput');
+		}
+	}else if(document.getElementById('colmet').value==0){
+		hideElement('addr_survey2');
+		showElement('addr_survey');
+		createQueryTimes(document.getElementById('surveyPerDay').value);
+	}else if(document.getElementById('colmet').value==1){
+		hideElement('addr_survey');
+		showElement('addr_survey2');
+		createQueryTimes(document.getElementById('surveyPerDay').value);
+	}
+}
+
+// Used to change the style of the cursor. Not used.
+	function cursor_button(){
+		document.body.style.cursor = 'hand';
+	}
+	
+	function cursor_default(){
+		document.body.style.cursor = 'default';
+	}
+
+/* Used during the creation and modification of a question.
+ * Draws the option for the super and multiple choice questions.
+ */
+function checkIfCreateOptionsNeeded(qtype){
+	var num = document.getElementById('num').value;		
+	if(num != null){
+		if(qtype == 5){ // If it  is a super question then it hides the multiple answer checkbox
+			hideElement('multipleCheckBox');
+		}else if(qtype == 4){ // If it  is a super question then it hides the multiple answer checkbox
+			showElement('multipleCheckBox');
+		}
+		for(var i=1;i<=num;i++){
+			if(qtype==5){
+				var htmltxt = 'Super of:<input type="text" id="superof'+i+'" name="superof'+i+'" value="" size="2" maxlength="2"/>';
+				document.getElementById('soption'+i).innerHTML = htmltxt;
+			}
+			if(qtype==4){
+				document.getElementById('soption'+i).innerHTML = '';
+			}
+		}
+	}
+}
+
+// Creates a private variable. editPrivar.php
+function createPrivars(privars){
+	if(navigator.appName == "Microsoft Internet Explorer") {
+			var e=0;
+			for(var j=0;j<document.getElementsByTagName('div').length;j++){
+				if(document.getElementsByTagName('div')[j].getAttribute('name')=="priv"){
+					e = e+1;
+				}
+			}
+		}else{
+			var e = document.getElementsByName('priv').length;
+		}
+	if(privars!=null){
+		if(privars>e){
+				for(var i=e+1;i<=privars;i++){	
+					var htmltxt = '<div id="priv'+i+'" name="priv">'+i+'. <input type="text" id="privar'+i+'" name="privar'+i+'" value="" maxlength="40"/><br /></div>';
+					document.getElementById('newPrivars').innerHTML += htmltxt;
+				}
+		}else{
+			if(privars<e){
+				for(var i=e;i>privars;i--){
+					var t = document.getElementById('priv'+i);
+					t.parentNode.removeChild(t);					
+				}
+			}
+		}
+	}
+}
+
+/* The following 3 functions used to make user confirm the remove of a query/user/reserch.
+ * After the positive answer the user is prompted to the next page.
+ */  
+	function wantToRemoveQuery(qid){
+		if (confirm("Are you sure that you want to remove this query, do you want to continue?")) {
+			window.location = '../content/manipQuery.php?id='+qid+'&action=rm';
+		}
+	}
+	
+	function wantToRemoveUser(uid){
+		if (confirm("Are you sure that you want to remove this user, do you want to continue?")) {
+			window.location = '../content/admin.php?id='+uid+'&action=rmu';
+		}
+	}
+	
+	function wantToRemoveResearch(rid){
+		if (confirm("Are you sure that you want to remove this research, do you want to continue?")) {
+			window.location = '../content/editResearch.php?id='+rid+'&action=rm';
+		}
+	}
+
+// This is used to download information about the research.
+function getfiles(getwhat,id){
+	if(getwhat=="getResearch"){
+		window.location = '../functionality/getAnswers.php?getResearch=Get research info&rid='+id;
+	}
+	if(getwhat=="getResearchAnswers"){
+		window.location = '../functionality/getAnswers.php?getResearchAnswers=Get research data&rid='+id;
+	}
+	
+	if(getwhat=="getResearchAnswers2"){
+		window.location = '../functionality/getAnswers.php?getResearchAnswers2=Get research data&rid='+id;
+	}
+	if(getwhat=="getResearchAnswers3"){
+		window.location = '../functionality/getAnswers.php?getResearchAnswers3=Get research data&rid='+id;
+	}
+	
+	if(getwhat=="getResearchZip"){
+		window.location = '../functionality/getAnswers.php?getResearchZip=Get media files&rid='+id;
+	}
+	if(getwhat=="getQuery"){
+		window.location = '../functionality/getAnswers.php?getQuery=Get query info&id='+id;
+	}
+	if(getwhat=="getXls"){
+		window.location = '../functionality/getAnswers.php?getXls=Get in excel file&id='+id;
+	}
+	if(getwhat=="getTxt"){
+		window.location = '../functionality/getAnswers.php?getTxt=Get in text file&id='+id;
+	}
+}
+
+/* ======================================================================================
+ * Validation function to validate the input on the server side.
+ * Used in different part of the sites throughout.
+ */
+ 
+// Validates adding a user. 
+function validateAdduser(){
+	$('.pwderror').css('color','red').html('');
+	$('.pwd2error').css('color','red').html('');
+	$('.nameerror').css('color','red').html('');
+	
+	if($('#username').val()!=null && $('#username').val()!=''){
+		 if($('#password').val()!=null && $('#password').val()!=''){
+		 	if($('#password2').val()!=null && $('#password2').val()!=''){
+		 		if($('#password2').val()==$('#password').val()){
+		 			sendform('newuserform');
+		 		}else{
+		 			$('#invalidform').css('display','block');
+					$('.errortxt').html('Passwords must match!');
+					$('.pwderror').css('color','red').html('*');
+					$('.pwd2error').css('color','red').html('*');
+		 		}
+		 	}else{
+		 		$('#invalidform').css('display','block');
+				$('.errortxt').html('Password comfirmation is not set!');
+				$('.pwd2error').css('color','red').html('*');
+		 	}
+		 }else{
+		 	$('#invalidform').css('display','block');
+			$('.errortxt').html('Password is not set!');
+			$('.pwderror').css('color','red').html('*');
+		 } 
+	}else{
+		$('#invalidform').css('display','block');
+		$('.errortxt').html('Username is not set!');
+		$('.nameerror').html('*');
+	}
+}
+
+// Validates changing the password.
+function validateChangepwd(){
+	$('.pwderror').css('color','red').html('');
+	$('.olderror').css('color','red').html('');
+	$('.pwd2error').css('color','red').html('');
+	$('.nameerror').css('color','red').html('');
+	if($('#username').val()!=null && $('#username').val()!=''){
+		if($('#oldpassword').val()!=null && $('#oldpassword').val()!=''){
+		 if($('#password').val()!=null && $('#password').val()!=''){
+		 	if($('#password2').val()!=null && $('#password2').val()!=''){
+		 		if($('#password2').val()==$('#password').val()){
+		 			sendform('changepwdform');
+		 		}else{
+		 			$('#invalidform').css('display','block');
+					$('.errortxt').html('New passwords must match!');
+					$('.pwderror').html('*');
+					$('.pwd2error').html('*');
+		 		}
+		 	}else{
+		 		$('#invalidform').css('display','block');
+				$('.errortxt').html('Password is not set!');
+				$('.pwd2error').html('*');
+		 	}
+		 }else{
+		 	$('#invalidform').css('display','block');
+			$('.errortxt').html('Password is not set!');
+			$('.pwderror').html('*');
+		 } 
+		}else{
+			$('#invalidform').css('display','block');
+			$('.errortxt').html('Password is not set!');
+			$('.olderror').html('*');
+		}
+	}else{
+		$('#invalidform').css('display','block');
+		$('.errortxt').html('Username is not set!');
+		$('.nameerror').html('*');
+	}
+}
+
+// Validates the setting up of the password.
+function validateSetpwd(){
+	$('.pwderror').css('color','red').html('');
+	$('.pwd2error').css('color','red').html('');
+	if($('#password').val()!=null && $('#password').val()!=''){
+		 if($('#password2').val()!=null && $('#password2').val()!=''){
+		 	if($('#password2').val()==$('#password').val()){
+		 		sendform('setnewpwdsuperform');
+		 	}else{
+		 		$('#invalidform').css('display','block');
+				$('.errortxt').html('New passwords must match!');
+				$('.pwderror').html('*');
+				$('.pwd2error').html('*');
+		 	}
+		 }else{
+		 	$('#invalidform').css('display','block');
+			$('.errortxt').html('Password is not set!');
+			$('.pwd2error').html('*');
+		 }
+	}else{
+		 $('#invalidform').css('display','block');
+		 $('.errortxt').html('Password is not set!');
+		 $('.pwderror').html('*');
+    } 
+}
+
+// Validates the add research form.
+function validateAddResearch(formi){
+	$('.rnameerror').css('color','red').html('');
+	$('.rdescrerror').css('color','red').html('');
+	$('.rdateerror').css('color','red').html('');
+	
+	if($('#name').val()!=null && $('#name').val()!=''){
+		 if($('#descr').val()!=null && $('#descr').val()!=''){
+		 	if(validateDate($('#start').val()) && validateDate($('#end').val())){
+		 		if($('#colmet').val()<4){
+		 			if(($('#colmet').val()==0) && ($('#surveyPerDay').val()>0)){
+		 				sendform(formi);
+		 			}else if(($('#colmet').val()==1) && ($('#surveyPerDay').val()>0)){
+		 				sendform(formi);
+		 			}else if($('#colmet').val()==2){
+		 				sendform(formi);
+		 			}else{
+		 				alert('The number of the queries is too low!');
+		 			}
+		 		}else{
+		 			alert('Data collection not valid!');
+		 		}
+		 	}else{
+		 		$('#invalidform').css('display','block');
+				$('.errortxt').html('Date fields must be valid!');
+				$('.rdateerror').html('*');
+		 	}
+		 }else{
+		 	$('#invalidform').css('display','block');
+			$('.errortxt').html('Description is not set!');
+			$('.rdescrerror').html('*');
+		 } 
+	}else{
+		$('#invalidform').css('display','block');
+		$('.errortxt').html('Research name is not set!');
+		$('.rnameerror').html('*');
+	}
+}
+
+// Validates the date
+function validateDate(dateinput){
+	var format = new RegExp('([0-9]{4})-([0-9]{2})-([0-9]{2})');
+	if(format.test(dateinput)){
+		return true;
+	}else{
+		return false;
+	}
+} 
+
+// Validates the Bluetooth id
+function validateBtid(){
+	var format = new RegExp('([0-9A-Za-z]{12})');
+	var value = $('#btid').val();
+	if($('#btid').val()==0 || $('#btid').val()==null){
+		sendform('setbtidform');
+	}else{
+		if(value.length==12 && format.test(value)){
+			sendform('setbtidform');
+		}else{
+			alert('Bluetooth ID is not valid!');
+		}
+	}
+}
+
+// Validates more than one Bluetooth id
+function validateBtAll(){
+	var format = new RegExp('([0-9A-Za-z]{12})');
+	var ok = false;
+	$('#addbtidallform').each(function(){
+		$("#addbtidallform").find(".btidinput").each(function(){
+			if($(this).val()==0 || $(this).val()==null){
+					ok = true;
+			}else{
+				if($(this).val().length==12 && format.test($(this).val())){
+						ok = true;
+				}else{
+						ok = false;
+						return false;
+				}
+			}
+		});
+	});
+	if(ok){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+// Sends the variables after the validation
+function validateBtTest(){
+	var ok = validateBtAll();
+	if(ok){
+		sendform('addbtidallform');
+	}else{
+		$('#invalidform').css('display','block');
+		$('.errortxt').html('Not all Bluetooth IDs are valid!');
+	}
+}
+
+/**
+* Validates if the query name has been set.
+* It is used in the add query and edit query processes.
+*/
+function validateAddQuery(formi){
+	$('.qnameerror').css('color','red').html('');
+	if($('#name').val()!=null && $('#name').val()!=''){
+		if($("input[type=checkbox]").length==0 || $("input:checked").length!=0){
+			sendform(formi);
+		}else{
+			$('#invalidform').css('display','block');
+			$('.errortxt').html('Query is not assigned to any time or order!');		
+		}
+	}else{
+		$('#invalidform').css('display','block');
+		$('.errortxt').html('Query name is not set!');
+		$('.qnameerror').html('*');
+	}
+}
+
+// Validates the private varaiable
+function validateAddprivar(formi){
+	var num = $('#n').val();
+	for(var i=1;i<=num;i++){
+		if($('#privar'+i).val()==null &&  $('#privar'+i).val()==''){
+			var error = true;
+		}
+	}
+	
+	if(error==true){
+		$('#invalidform').css('display','block');
+		$('.errortxt').html('Private variable is not set');
+	}else{
+		sendform(formi);
+	}
+}
+
+// Validate the addition of a new question.
+function validateAddque(qid,edt){
+	if($("#question").val()!=null && $("#question").val()!=''){
+		if($("input[@id='type']:checked").val()!=null && $("input[@id='type']:checked").val()!=''){
+			var qtype = $("input[@id='type']:checked").val();
+			if(qtype==2 || qtype==4 || qtype==5 || qtype==9){
+				switch(qtype){
+					case "2": if($('#open1').val()!=null &&  $('#open1').val()!='' && $('#open2').val()!=null &&  $('#open2').val()!=''){
+									if(edt==0){
+										addEvent(qid);
+									}else{
+										editEvent(qid);
+									}
+									selecta(0);
+							  }else{
+							  		alert('Open number min and max values must be set!');
+							  }break;
+					case "4": if($('#num').val()!=null &&  $('#num').val()!=''){
+									var num = $('#num').val();
+									for(var i=1;i<=num;i++){
+										//alert($('#option'+i).val());
+										if($('#option'+i).val()==null ||  $('#option'+i).val()==''){
+											var error = true;
+											break;
+										}
+									}
+									if(error!=true){
+										if(edt==0){
+											addEvent(qid);
+										}else{
+											editEvent(qid);
+										}
+										selecta(0);
+									}else{
+										alert('Options are not valid!');
+									}
+							  }else{
+							  	alert('Option is not set!');
+							  }break;
+					case "5": if($('#num').val()!=null &&  $('#num').val()!=''){
+									var num = $('#num').val();
+									for(var i=1;i<=num;i++){
+										if($('#option'+i).val()==null ||  $('#option'+i).val()==''){
+											var error = true;
+											break;
+										}
+									}
+									if(error!=true){
+										if(edt==0){
+											addEvent(qid);
+										}else{
+											editEvent(qid);
+										}
+										selecta(0);
+									}else{
+										alert('Options are not valid!');
+									}
+							  }else{
+							  	alert('Option is not set!');
+							  }break;
+					case "9": if($('#slider1').val()!=null &&  $('#slider1').val()!=''){
+									  if($('#slider2').val()!=null &&  $('#slider2').val()!=''){
+										  if($('#slider3').val()!=null &&  $('#slider3').val()!=''){
+											  if($('#slider4').val()!=null &&  $('#slider4').val()!=''){
+												if($('#slider5').val()!=null &&  $('#slider5').val()!=''){
+													if(edt==0){
+														addEvent(qid);
+													}else{
+														editEvent(qid);
+													}
+													selecta(0);
+											  	}else{
+											  		alert('Scale is not set!');
+											  	}
+											  }else{
+											  	alert('Max value is not set!');
+											  }
+										  }else{
+										  	alert('Max label is not set!');
+										  }
+									  }else{
+									  	alert('Min value is not set!');
+									  }
+							  }else{
+							  	alert('Min label is not set!');
+							  }break;
+				}
+			}else{
+				if(edt==0){
+					addEvent(qid);
+				}else{
+					editEvent(qid);
+				}
+				selecta(0);
+			}
+		}else{
+			alert('Question type is not set!');
+		}
+	}else{
+		alert('Question text is not set!');
+	}
+}
+
+// Used in the question mediting, making to select tab
+function selecta(index){
+	$("#edit").tabs("select", index);  //> ul
+}
+
+// Pushes the filled in form to the given name
+function sendform(name){
+	$('#'+name).submit();
+}
+
+// Opens a help window
+function openhelp(target){
+	window.open("../content/help.html#"+target,'Help',"height=500,width=400,scrollbars=yes");
+}

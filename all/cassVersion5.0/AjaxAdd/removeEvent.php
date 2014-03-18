@@ -1,0 +1,36 @@
+<?php
+/*
+ * This file removes the question from the database.
+ */
+require_once("../common/includes.php");
+
+$qid = $_GET['id'];
+
+if(isset($qid)){	//If question id is set,it will be removed
+	$question = new Question(0,$qid);
+	//before removing;the questions number has to be checked and other questions numbers has to be reset
+	$queryID = $question->getOwner();
+	$query = new Query($queryID);
+	$num=$query->getNumOfQuestions();
+	$number = $question->getNumber();
+	if($num>$number){
+		$questionlist = $query->listChildren();
+		for($i=0; $i<mysql_numrows($questionlist); ++$i){
+			$queId = mysql_result($questionlist,$i,"question_id");
+			$quest = new Question(0,$queId);
+			$oldnum = $quest->getNumber();
+			if($oldnum>$number){
+				$newnum = $oldnum-1;
+				$quest->setNumber($newnum);
+			}
+		}
+	}
+	if($question->rmQuestion()){
+		echo listEvents($queryID);
+	}else{
+		echo false;
+	}
+}
+
+
+?>

@@ -1,0 +1,90 @@
+<?php
+function createAddUserTable($suAdmin=0, $rowner=0){
+	echo "<div class=\"description\">";
+	echo "<div id=\"invalidform\"><div class=\"errortxt\"></div></div>";
+	echo(" <form name=\"newuserform\" id=\"newuserform\" action=\"../content/adduser2.php \" method=\"post\" enctype=\"multipart/form-data\">");
+	echo(" <table>");
+	echo(" 	<tr>");
+	echo(" 	<td>Username:</td>");
+	echo(" 	<td><input type=\"text\" id=\"username\" name=\"username\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"nameerror\"></td></tr>");
+	echo(" 	<tr>");
+	echo(" 	<td>Password:</td>");
+	echo(" 	<td><input type=\"password\" id=\"password\" name=\"password\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"pwderror\"></td></tr>");
+	echo(" 	<td>Retype Password:</td>");
+	echo(" 	<td><input type=\"password\" id=\"password2\" name=\"password2\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"pwd2error\"></td></tr>");
+	echo("</table>");
+	echo(" 	<h2>System administrative rights</h2><p><small style=\"color:black\">Leave unchecked if user has no need for administrative rights i.e a subject or a researcher for exsisting research.</small></p> ");
+	echo "<table>";
+	echo(" 	<tr> ");
+ 	if($suAdmin==1){
+ 		echo(" 		<td><input type=\"checkbox\" name=\"superadmin\" value=\"1\" class=\"checkInput\" /> Super Admin </td>");
+ 	}//endif
+ 	
+  	if($rowner==1||$suAdmin==1){
+ 		echo(" 		<td><input type=\"checkbox\" name=\"researchowner\" value=\"1\" class=\"checkInput\" /> Research Administrator </td>");
+  	}
+ 	echo("</tr><tr>");
+ 	//echo(" 		<td></td>");
+ 	//echo(" 		<td><br /><input type=\"submit\"/ value=\"Submit\"></td></tr>");
+  	echo(" 		<td><br /><a class=\"button\" href=\"#\" onclick=\"this.blur();validateAdduser()\"><span> Add </span></a></td></tr>");
+ 	 echo("</table>");
+  
+	echo("  </form>");
+	echo "</div>";
+}
+return true;
+
+function createChangepwdTable($UID,$username){
+	echo "<div class=\"description\">";
+	echo "<div id=\"invalidform\"><div class=\"errortxt\"></div></div>";
+	echo(" <form id=\"changepwdform\" action=\"../content/changepwd2.php \" method=\"post\" enctype=\"multipart/form-data\">");
+	echo(" <table>");
+	echo(" 	<tr>");
+	echo(" 	<td>Username:</td>");
+	echo(" 	<td><input type=\"text\" id=\"username\" name=\"username\" value=\"$username\" size=\"40\" maxlength=\"40\"/></td><td class=\"nameerror\"></td></tr>");
+	echo(" 	<tr>");
+	echo(" 	<td>Old Password:</td>");
+	echo(" 	<td><input type=\"password\" id=\"oldpassword\" name=\"oldpassword\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"olderror\"></td></tr>");
+	echo(" 	<tr>");
+	echo(" 	<td>New Password:</td>");
+	echo(" 	<td><input type=\"password\" id=\"password\" name=\"password\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"pwderror\"></td></tr>");
+	echo(" 	<td>Retype Password:</td>");
+	echo(" 	<td><input type=\"password\" id=\"password2\" name=\"password2\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"pwd2error\"></td></tr>");
+	echo(" 	<tr>");
+	echo(" 		<td></td>");
+	//echo(" 		<td><input type=\"submit\" value=\"Update\"/></td></tr>");
+	  echo(" 		<td><a class=\"button\" href=\"#\" onclick=\"this.blur();validateChangepwd()\"><span>Update</span></a></td></tr>");
+	 echo("</table>");
+	  
+	echo("  </form>");
+	echo "</div>";
+}
+
+function createChangepwdTableForSuper($UID,$username){
+	 
+	 echo(" <form id=\"setnewpwdsuperform\" action=\"../content/changepwd2.php \" method=\"post\" enctype=\"multipart/form-data\">");
+	 echo(" <table>");
+	 echo(" 	<tr>");
+	 echo(" 	<td>Username: <b>$username</b></td>");
+	 echo(" 	<td><input type=\"hidden\" id=\"username\" name=\"username\" value=\"$username\" size=\"40\" maxlength=\"40\"/></td></tr>");
+	 echo(" 	<tr>");
+	 echo(" 	<td><input type=\"hidden\" id=\"uid\" name=\"uid\" value=\"$UID\" size=\"40\" maxlength=\"40\"/></td></tr>");
+	 echo(" 	<tr>");
+	 $u = new User($UID);
+	 $old = $u->getPwd();
+	 echo(" 	<td><input type=\"hidden\" id=\"oldpassword\" name=\"oldpassword\" value=\"$old\" size=\"40\" maxlength=\"40\"/></td></tr>");
+	 echo(" 	<tr>");
+	 echo(" 	<td>Set New Password:</td>");
+	 echo(" 	<td><input type=\"password\" id=\"password\" name=\"password\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"pwderror\"></td></tr>");
+	 echo(" 	<td>Retype New Password:</td>");
+	 echo(" 	<td><input type=\"password\" id=\"password2\" name=\"password2\" value=\"\" size=\"40\" maxlength=\"40\"/></td><td class=\"pwd2error\"></td></tr>");
+	 echo(" 	<tr>");
+	 echo(" 		<td></td>");
+	// echo(" 		<td><input type=\"submit\" value=\"Set\"/></td></tr>");
+	echo(" 		<td><a class=\"button\" href=\"#\" onclick=\"this.blur();validateSetpwd()\"><span>Set</span></a></td></tr>");
+	  
+	  echo("</table>");
+	  
+	echo("  </form>");
+}
+?>

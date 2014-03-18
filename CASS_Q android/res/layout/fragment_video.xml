@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_swipe"
+        android:orientation="vertical" >
+	
+        <!-- Displays the question -->
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <!-- Plays the recorded video -->
+        <Button
+            android:id="@+id/play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/border_video"
+            android:drawableLeft="@drawable/cass_video_play"
+            android:drawablePadding="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:text="@string/video_play_button"
+            android:textColor="@color/dark_grey"
+            android:visibility="gone" />
+
+        <!-- Starts camera application in video mode -->
+        <Button
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_video" />
+
+        <!-- Displays the position in the survey -->
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="fill_vertical|center_horizontal"
+            android:background="@color/transparent"
+            android:gravity="bottom|center"
+            android:paddingBottom="15dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</ScrollView>

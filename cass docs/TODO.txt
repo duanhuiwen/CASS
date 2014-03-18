@@ -1,0 +1,30 @@
+KESÄN TO DO LIST:
+
+	* skandit [Ei näkynyt enää]
+	* Käyttäjien poisto [suAdminilla ainostaan oikeus poistaa kokonaan]
+	* Tutkimukset lukkoon jos on jo alkanut,tai ainakin joku varmistus että onko varma että
+	  haluaa muokata,jos se on jo meneillään
+	* Slider arvot puhelimelle [tehty]
+		* Slider: jos type=9 => option taulussa 1=min.arvo 2=max.arvo 3=skaala
+		* Selvitä miten puhelin tekee xml:stä sliderin!!!
+	* Kysymyksien optioita muokatessa vanhat eivät katoa jos lisää tai vähentää nykyisten määrää [tehty]
+	* Hoida txtAnswer
+	* Admin osio -> käyttäjien poistot,oikeuksien hallinta yms.
+	* Lukkoon muokkauksen ajaksi osiot,esim kysymysten muokkaukseen ei montaa ihmistä kerralla
+	- Kryptaus
+	- Puhelimen ja serverin yhteistyö toimintaan,datan pushaus (Kalenterimerkinnällä) -> XML:ään lisäystä
+	* subjekteista jotain käyrää [(Ei tarvita vielä)]
+	- Logit että tietää missä virheitä,auttaa kehittäjää löytämään käyttäjien ongelmiin ratkaisut
+	- Custom Error -sivut
+	- Turvallisuus kuntoon
+	- Selaimella vastaukset
+	- Backupit jotenkin talteen,admin voi tehdä recovery
+	* Varotukset kun poistaa jotain
+	* Dumppina kaikki media sälä tutkimuksesta <- yhdellä klikkauksella
+
+Testauksessa esiintyneet bugit ja puutteet:
+
+	- TEE ALUSTAVA TESTAUSSUUNNITELMA 4.9 MENNESSÄ!!!!!!!! PAKKO OLLA!!!!	
+	- Pystyi vastaamaan samaan uudelleen??
+	- Ie copy taustavärit vituiks
+	- audion tilalla voi tulla myös tekstiä,pistä tämä toimiin,että menee oikeeseen paikkaan tuo teksti

@@ -1,0 +1,44 @@
+<?php
+//Login form generation function include
+require_once("../common/auth_loginf.php");
+require_once("../common/auth_start.php");
+//This includes all the classes needed for the system to function.
+include "../common/includes.php";
+if($id==null){	
+	$id=decrypt($_GET['id']);
+}
+$query = new Query($id);
+$rid = $query->getOwner();
+$research_id = encrypt($rid);
+$research_menu = true;
+//bringing in the top part of the layout, if the login function didn't already do that
+require_once("../UI/layout/top.php");
+
+	if($_GET['action'] == "logout" && $a->checkAuth()){
+    	$a->logout();
+    	$a->start();
+    }else{
+		if ($a->checkAuth()) { ///Start secured content
+			require_once("../common/includes.php"); //Class includes
+			$UID=$a->getAuthData('uid'); //get user ID
+			$u = new User($UID);
+	
+			if($a->getAuthData('su_admin')==0 && $a->getAuthData('research_owner')==0 && $u->hasRightToLoginIn()==false){
+				echo "Access denied! Subjects can't login in to the admin tool.";
+			}else{
+				$r = new Research($rid);
+				if($r->users->isLocalAdmin($UID) || $r->users->isLocalResearcher($UID)){
+					$u->unlock();
+					//This includes the actual content of the page					
+					include("../functionality/displayQuery.php");
+				}else{
+					echo "Access denied,you are not allowed to browse this data.";
+				}
+			}
+		}//end secured content
+	}//endif
+
+//page footer
+echo("<br /><br />");    
+include("../UI/layout/bottom.php");
+?>

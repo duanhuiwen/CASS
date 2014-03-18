@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO
+END
+ResearchSQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/ResearchSQLQueryer.php
+END
+UserSQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/UserSQLQueryer.php
+END
+AnswerSQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/AnswerSQLQueryer.php
+END
+SQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/SQLQueryer.php
+END
+SubjectSQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/10798/wp6/CASS-Q/dev-branch/classes/SQL-IO/SubjectSQLQueryer.php
+END
+SQLStub.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3762/wp6/CASS-Q/dev-branch/classes/SQL-IO/SQLStub.php
+END
+LogSQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/LogSQLQueryer.php
+END
+QuerySQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/QuerySQLQueryer.php
+END
+QuestionSQLQueryer.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/SQL-IO/QuestionSQLQueryer.php
+END

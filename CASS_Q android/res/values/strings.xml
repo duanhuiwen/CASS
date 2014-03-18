@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application name -->
+    <string name="app_name">CASS-Q</string>
+
+    <!-- Button text -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="video_play_button">Play recorded video</string>
+
+    <!-- Content descriptions -->
+    <string name="status">Status</string>
+    <string name="cass_title">CASS title</string>
+    <string name="photo_preview">Photo preview</string>
+    <string name="icon_type">Icon depending on file type</string>
+    <string name="logo">CASS-Q logo</string>
+
+    <!-- Empty list text -->
+    <string name="no_questions">No questions available</string>
+    <string name="no_files">No files available</string>
+
+    <!-- CommentFragment title -->
+    <string name="comment">Comment</string>
+
+    <!-- Toast and dialog text -->
+    <string name="load">Loading&#8230;</string> <!-- #8230 is ascii reference for "..." -->
+    <string name="no_token">No valid token found! Please set token.</string>
+    <string name="no_video">No video found.</string>
+    <string name="no_photo">Unable to load photo.</string>
+    <string name="no_audio">No audio file available.</string>
+    <string name="no_sd">No storage device found.</string>
+    <string name="no_survey">No survey available.</string>
+    <string name="no_media_folder">CASS Media folder not available.</string>
+    <string name="photo_not_found">No photo found.</string>
+    <string name="camera_no_sd">Unable to start camera: No storage device found.</string>
+    <string name="camera_no_media_folder">Unable to start camera: CASS Media folder not available.</string>
+    <string name="invalid_id">Invalid token: Not enough characters.</string>
+    <string name="invalid_type">Invalid media type.</string>
+    <string name="invalid_number">Number out of range. Choose between %1$d and %2$d.</string>
+    <string name="delete_token">Delete token?</string>
+    <string name="token_deleted">Token has been deleted.</string>
+    <string name="new_questions">New questions have been added to the survey.</string>
+    <string name="unidentified_question">Unidentified question received.</string>
+    <string name="canceled">Canceled</string>
+    <string name="receive_failed">Unable to receive data:</string>
+    <string name="send_failed">Unable to send data:</string>
+    <string name="play_failed">"Unable to play:</string>
+    <string name="incomplete_survey">Survey has not been completed.</string>
+    <string name="data_sent">Data has been sent to server.</string>
+    <string name="new_survey">New survey has been downloaded from server.</string>
+    <string name="survey_empty">Survey is empty.</string>
+    <string name="damaged_xml">Data from server is damaged.</string>
+    <string name="check_question_server">Check question server address.</string>
+    <string name="check_answer_servers">Check answer and media server address.</string>
+    <string name="audio_start_time">00:00</string>
+    <string name="about">About \nCASS-Q Android client</string>
+	<string name="description">Version 1.0 \nJuly 2012</string>
+	<string name="developer">Developers: \nLukas Loechte \nSebastian Stellmacher \n\nOrganisation: \nHelsinki Metropolia \nUniversity of Applied Science</string>
+	
+</resources>

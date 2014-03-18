@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- This file is the help within the Cass-Q admin system. This file canbe called with its
+different HTML anchors with the openhelp function in functions.js. -->
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<style type="text/css">
+			body {
+				font-family: "Trebuchet MS", Lucida, Verdana, Sans-Serif;
+				font-size: 11px;
+			}
+		</style>
+		<title>Cass-Q Admin Help</title>
+	</head>
+	
+	<body>
+		<h1>Cass-Q Admin Tool</h1>
+		<a name="newuser">
+			<h2>Adding a new user</h2>
+		</a>
+		<p>Type in username and password twice in the fields required for them.</p>
+		<p>Under system administrative rights check the wanted right for the user
+		or leave unchecked if no administrative rights is needed.</p>
+		<p>Super Admin: Has right to make new users and manage all existing users.
+		No rights related to researches.</p>
+		<p>Research Administrator: Has right to make new researches and new users.</p>
+		<p>No additional rights: User can not make users or researches. User can
+		act as a researcher or respondent.</p>
+		
+		<a name="addres">
+			<h2>Adding a new research</h2>
+		</a>
+		<p>Fill in the fields for research name and description. Select starting
+		day for research (the day when respondents start getting queries) and
+		select the ending day. Select also the preferred data collection method</p>
+		<p>Fixed Time: Queries tied on a time, can be many different queries for
+		each query time.
+		</p>
+		<p>Fixed Interval: First query sent when respondent chooses to answer it, rest
+		queries are sent after a certain period of time. Can be different
+		queries for different time periods.
+		</p>
+		<p>Event Contingent: One query sent as many times as the respondent wants to
+		answer it.</p>
+		<!-- <br />
+				Random: One query sent as many times as wanted in random times. (Not
+				supported yet if ever)  -->
+				
+		<a name="addquer">
+			<h2>Adding a new query</h2>
+		</a>
+		<p>Fill in the field for query's name. If researches data collection method
+		is Fixed Time, select the times when the query is sent.</p>
+		<a name="editques">
+			<h2>Editing question in a query</h2>
+		</a>
+		<h3>Adding a new question</h3>
+		<p>Click add new or click the add tab. Type the question in the text box.</p>
+		<p><b>Category</b>
+		<br />
+		Insert the category number or leave empty if category is 0. With
+		category 0 the question is shown in the Cass client always. Questions
+		with a category number different than 0 is shown only if a option with
+		that category number in a super question is chose by the respondent.
+		</p>
+		<p><b>Question type</b>
+		<br />
+		Select the preferred question type for question.
+		<br />
+		Open text: Respondent can answer with his own words.
+		<br />
+		Open number: Respondent gives a number inside the given range.
+		<br />
+		Sound: Respondent records sound
+		<br />
+		Multiple choice: Respondent chooses the best choice of predefined options.
+		<br />
+		Super: Respondent chooses the best choice of predefined options and
+		questions with same category value as the super of value of the chosen
+		option are shown if super of is defined.
+		<br />
+		Comment: A comment can be given to the respondent. Respondent can not answer
+		anything to this.
+		<br />
+		Photo: Respondent takes a photo.
+		<br />
+		Video: Respondent records video.
+		<br />
+		Slider: Respondent selects a value inside the given range.</p>
+		
+		<a name="copyques">
+			<h3>Copying a question</h3>
+		</a>
+		<p>Questions can be copied by clicking the Copy tab.
+		<br />
+		Researches where you have administrative rights are shown and under them
+		are shown the queries.
+		<br />
+		Select a query where you want to copy questions from. Questions can be
+		copied by dragin them to your query or the whole query can be copied by
+		clicking the "Copy whole query" button.</p>
+		
+		<a name="editquesti">
+			<h3>Editing a question</h3>
+		</a>
+		<p>Click the question and edit the values in the box shown on right. After
+		editing click "Modify" button to save changes.
+		<br />
+		Questions can be rearranged by dragging them.</p>
+		
+		<a name="delques">
+			<h3>Deleting a question</h3>
+		</a>
+		<p>Click the question which needs removal and then click "Remove" button in
+		the right.</p>
+		
+		<a name="addsub">
+			<h2>Adding respondents to research</h2>
+		</a>
+		<p>Set the amount of respondents wanted, click "Create".
+		<br />
+		Usernames and passwords can be edited if required. Click "Create" to add
+		respondent to the research.</p>
+		
+		<a name="manrights">
+			<h2>Managing user rights in research</h2>
+		</a>
+		<p>Add users to research by checking the wanted role to the user or remove
+		from research by unchecking the roles from the user.</p>
+		
+		<a name="addbluetooth">
+			<h2>Adding Bluetooth</h2>
+		</a>
+		<p>Bluetooth identifier is used to connect a respondent to a research. The
+		same bluetooth identifier can't be used at same time in many researches.
+		Set bluetooth identifier to the form for each respondent and click
+		"Set". Bluetooth identifier can be found from the phone by inserting
+		*#2820# to the phone. Identifier must be 12 characters long. By
+		inserting empty or 0, the identifier can be unset.</p>
+		
+		<a name="addprivar">
+			<h2>Adding private variables</h2>
+		</a>
+		<p>For every respondent there can be private variables. By them private
+		information, for each respondent, can be inserted to questions. Private
+		variable is shown in question by inserting [private variable num] to
+		question. (E.g "Do you like [1] ?". this will show with private variable
+		"dogs" -> "Do you like dogs ?".) Set the amount of private variables
+		that need to be set, click "Create". Set the private variables to the
+		form. the number before the text box tells the number of the private
+		variable.</p>
+		
+		<div class="helpbottom"></div>
+	</body>
+</html>

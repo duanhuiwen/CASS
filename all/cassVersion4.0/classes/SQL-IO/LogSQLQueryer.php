@@ -1,0 +1,65 @@
+<?php
+class LogSQLQueryer{
+
+		var $server;
+		var $serverType;
+		var $serverPwd;
+		var $serverUsn;
+		var $dbName;
+		var $mdb2;
+
+	function __construct(){
+		include "../settings/dbsettings.php";
+		$this->server=$mdb_server;
+		$this->serverType=$mdb_type;
+		$this->serverPwd=$mdb_passwd; 
+		$this->serverUsn=$mdb_usn;
+		$this->dbName=$mdb_db;
+		$this->mdb2=$mdb2;
+	}
+
+	
+	function addItem($UID, $ip, $descr, $dateTime = 0){					//A function can add a log item stamped with current time
+		//debug echo("addItem invoked");
+		if($dateTime==0){																//or can take any standard timestamp as argument, and use that as
+																					//the time
+			$date=date('Y-m-d H:i:s');
+		}else{
+			$date=date('Y-m-d H:i:s', $dateTime);
+		}
+		$query= "INSERT INTO `tbl_log` (`event_ID` ,`event_descr` ,`UID` ,`IP` ,`date_time`) VALUES (NULL , '$descr', '$uid','$ip', '$date');";
+		$result = $this->mdb2->query($query) or die('An unknown error occurred while inserting the data');
+		if(MDB2::isError($result)){
+			//Debug echo("returned false");
+			return false;
+		}else{
+			//Debug echo("returned true");
+			return true;
+		}	
+	}//end function
+	
+	function getLogListByDate($date){					//Returns logs for one day
+		$query= "SELECT * FROM `tbl_log` WHERE date_time LIKE '$date%'";
+		$result = $this->mdb2->query($query) or die('An unknown error occurred while checking the data');
+		if(MDB2::isError($result)){
+			return "SelectError";
+		}else{
+			$native_result = $result->getResource();
+			return $native_result;				//Returns a standard MySQL Assoc datatype.
+
+		}
+	}//End function	
+		
+	//TODO: Make a function to select log items also by user, or IP
+	
+	function createTables2DB(){						//This method provides database table creation tools.
+		$query= "CREATE TABLE `tbl_log` (`event_ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,`event_descr` NOT NULL ,`UID` INT NOT NULL ,`IP` VARCHAR( 32) NOT NULL ,`date_time` DATETIME NOT NULL);";
+		$result = $this->mdb2->query($query) or die('An unknown error occurred while updating the data');
+		if(MDB2::isError($result)){
+			return false;
+		}else{
+			return true;
+		}	
+	}													//end function
+}														//end class
+?>

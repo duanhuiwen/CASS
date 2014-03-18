@@ -1,0 +1,196 @@
+<?php
+    function full_url(){  //function that returns the full URL of the current page
+      	$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : ""; 
+      	$protocol = substr(strtolower($_SERVER["SERVER_PROTOCOL"]), 0, strpos(strtolower($_SERVER["SERVER_PROTOCOL"]), "/")) . $s;   
+      	$port = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":".$_SERVER["SERVER_PORT"]);   
+      	return $protocol . "://" . $_SERVER['SERVER_NAME'] . $port . $_SERVER['REQUEST_URI'];
+    }
+      
+    function validateDate($y,$m,$d){
+		if(is_numeric($y) && is_numeric($m) && is_numeric($d)){
+			$year = date('Y');
+			if($d<32 && $m<13 && $y>=$year){
+				if(strlen($y)==4 && strlen($d)==2 && strlen($m)==2){
+					if(($m==1 || $m==3 || $m==5 || $m==7 || $m==8 || $m==10 || $m==12) && $d<32){
+						return true;
+					}elseif(($m==4 || $m==6 || $m==9 || $m==11) && $d<31){
+						return true;
+					}elseif($m==2 && $d<30){
+						return true;
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
+      		}else{
+      			return false;
+      		}
+		}else{
+			return false;
+		}
+	}
+	
+	function validateDatepick($s,$e,$update=false){
+		$start = explode("-",$s);
+		$end = explode("-",$e);
+		$startT = ($start[0]*365)+($start[1]*31)+$start[2];
+		$endT = ($end[0]*365)+($end[1]*31)+$end[2];
+		$now = (date('Y')*365)+(date('m')*31)+date('d');
+		if($update==true){
+			if($endT>=$startT){	
+				$test = date("Y-m-d",mktime(0, 0, 0, $start[1], $start[2], $start[0]));
+					if($test == $s) {
+						$test = date("Y-m-d",mktime(0, 0, 0, $end[1], $end[2], $end[0]));
+						if($test == $e) {
+							return true;
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+					}
+			}else{
+				return false;
+			}
+		}else{
+			if($endT>=$startT && $startT>=$now){		
+				$test = date("Y-m-d",mktime(0, 0, 0, $start[1], $start[2], $start[0]));
+				if($test == $s) {
+					$test = date("Y-m-d",mktime(0, 0, 0, $end[1], $end[2], $end[0]));
+					if($test == $e) {
+						return true;
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+		}
+	}
+	
+	function validateTime($h,$m){
+		if(is_numeric($h) && is_numeric($m)){
+			if($h<24 && $m<60){
+				if(strlen($h)==2 && strlen($m)==2){
+					return true;
+				}else{
+					return false;
+				}
+      		}else{
+      			return false;
+      		}
+		}else{
+			return false;
+		}
+	}
+	
+	function redirect($url){
+		if(!headers_sent()){
+        	return header('Location:'.$url.'');
+    	}else{ 
+       		$redir = '<script type="text/javascript">';
+			$redir .= 'window.location.href="'.$url.'";';
+			$redir .= '</script>';
+			$redir .= '<noscript>';
+			$redir .= '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+			$redir .= '</noscript>';
+			return $redir;
+   	 	}
+	}
+	
+	function XMLMessage($msg,$UID,$research_id){
+		$survey = new DomDocument('1.0','ISO-8859-1');
+		$survey->formatOutput =true;
+		$user = new User($UID);
+		$UName = $user->getName();
+		if($UName==null){
+			$UName="unknown";
+		}
+		$root = $survey->createElement('survey');
+		$root = $survey->appendChild($root);
+		$root->setAttribute('username',$UName);
+		$root->setAttribute('uid',$UID);
+		$root->setAttribute('surveyCount',1);
+		$root->setAttribute('surveyId',$research_id);
+		$item = $survey->createElement('message');
+		$item->appendChild($survey->createTextNode($msg));
+		$root->appendChild($item);
+		return $survey->saveXML();
+	}
+	
+	function encrypt($text){	// problems with the encryption and decryption: basically it doesn't use the ecryption key 
+		require_once("../settings/dbsettings.php");
+		return base64_encode(base64_encode($text)."$enc_key");
+	}
+
+	function decrypt($enc_text){
+		require_once("../settings/dbsettings.php");
+		return base64_decode(base64_decode($enc_text)."$enc_key");
+	}
+	
+	function getQuestionType($quest) {
+		$disStr = "";
+		switch ($quest) {//Note: This conversion also exists on JavaScript code, at least in functions.js
+			case "1": $disStr = "Open text"; break;
+			case "2": $disStr = "Open number"; break;
+			case "3": $disStr = "Sound"; break;
+			case "4": $disStr = "Multiple choice"; break;
+			case "5": $disStr = "Super"; break;
+			case "6": $disStr = "Comment"; break;
+			case "7": $disStr = "Photo"; break;
+			case "8": $disStr = "Video"; break;
+			case "9": $disStr = "Slider"; break;
+			case "10": $disStr = "Multiple answer"; break;
+		}
+		return $disStr;
+	}
+		
+	function listEvents($qid){
+		if(isset($qid)){
+			$query = new Query($qid);
+			$qlist = $query->listChildren();
+			$numOfQ = $query->getNumOfQuestions();
+			$display_string = "Questions:";
+	
+			$display_string .="<ul id=\"questionList\">";
+			
+			if($qlist!=null && $numOfQ>0){
+				while($row = mysql_fetch_array($qlist)){
+					$display_string .="<li id=\"item_".$row['question_id']."\">";
+					$display_string .= '<div class="event" id="kyssa'.$row['question_id'].'" onClick="fade(\'kyssa'.$row['question_id'].';'.$qid.'\',\''.$row['number'].';'.$numOfQ.'\'),selecta(0)">';
+					$display_string .= '<div class="inEvent"><h3 class="questionNum">Question '. $row['number'] . '</h3>';
+					$display_string .= '<p><b>Question: </b> ' . $row['question'] . '<br />';
+					$display_string .= '<b>Type: </b>' . getQuestionType($row['question_type']) . '<br />';
+					$display_string .= '<b>Category: </b> ' . $row['category'] . '<br /></p>';
+					if($row['category']!=0){
+						$q = new Question(0,$row['question_id']);
+						$parentti = $q->getParentQuestion();
+						if(!empty($parentti)){
+							$p = new Question(0,$parentti);
+							$parentti = $p->getQuestionText();
+							$display_string .= 'Parent question: '.$parentti.'';
+						}
+					}
+					$display_string .= '</div></div>';
+					$display_string .="</li>";
+				}
+			}
+			else{
+				$display_string .="<br /><br /><br />No question<br /><br /><br />";
+			}
+			$display_string .="</ul>";
+			return $display_string;
+		}
+	}
+	
+	function timeStampToSecs($timestamp){
+		//PVe 23.3 converts hh:mm:s form of time into seconds since midnight
+		$time = explode(":",$timestamp);
+		return ($time[0]*3600)+($time[1]*60)+$time[2];
+	}
+		
+?>

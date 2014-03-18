@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_swipe"
+        android:orientation="vertical" >
+
+        <!-- Displays the question -->
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <!-- Holds the labels -->
+
+        <LinearLayout
+            android:id="@+id/label_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:weightSum="100" >
+
+            <!-- Displays the mininum label -->
+
+            <TextView
+                android:id="@+id/min_label"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="left"
+                android:paddingRight="2dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!-- Displays the maximum label -->
+
+            <TextView
+                android:id="@+id/max_label"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="right"
+                android:paddingLeft="2dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- User enters the value -->
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:progressDrawable="@drawable/cass_slider"
+            android:thumb="@drawable/cass_thumb" />
+
+        <!-- Holds the labels -->
+
+        <LinearLayout
+            android:id="@+id/value_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:weightSum="90" >
+
+            <!-- Displays the minimum value -->
+
+            <TextView
+                android:id="@+id/min_value"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!-- Displays the current value -->
+
+            <TextView
+                android:id="@+id/progress"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!-- Displays the maximum value -->
+
+            <TextView
+                android:id="@+id/max_value"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:gravity="right"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Displays the position in the survey -->
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="fill_vertical"
+            android:background="@color/transparent"
+            android:gravity="bottom|center"
+            android:paddingBottom="15dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</ScrollView>

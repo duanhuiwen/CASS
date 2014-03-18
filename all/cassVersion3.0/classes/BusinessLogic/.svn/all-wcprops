@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/BusinessLogic
+END
+Research.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/8409/wp6/CASS-Q/dev-branch/classes/BusinessLogic/Research.php
+END
+User.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/4654/wp6/CASS-Q/dev-branch/classes/BusinessLogic/User.php
+END
+Answer.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/BusinessLogic/Answer.php
+END
+Subject.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/BusinessLogic/Subject.php
+END
+DatabaseWriteable.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4520/wp6/CASS-Q/dev-branch/classes/BusinessLogic/DatabaseWriteable.php
+END
+XMLAggregator.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/BusinessLogic/XMLAggregator.php
+END
+Query.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/BusinessLogic/Query.php
+END
+LocalUserHandler.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/4520/wp6/CASS-Q/dev-branch/classes/BusinessLogic/LocalUserHandler.php
+END
+Question.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/8844/wp6/CASS-Q/dev-branch/classes/BusinessLogic/Question.php
+END

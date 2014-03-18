@@ -1,0 +1,46 @@
+# To install MySql database:
+
+sudo apt-get install mysql-server
+
+# To start MySql server:
+
+/etc/init.d/mysql start
+
+# To stop MySql server:
+
+/etc/init.d/mysql stop
+
+# To restart MySql server:
+
+/etc/init.d/mysql restart
+
+# To check the status of  MySql server:
+
+/etc/init.d/mysql status
+-i
+
+
+apt-get install xfsprogs 
+ modprobe xfs
+ mkfs.xfs /dev/sdb
+
+echo "/dev/sdb /vol xfs noatime 0 0" | sudo tee -a /etc/fstab
+sudo mkdir -m 000 /vol
+sudo mount /vol
+
+
+mkdir /vol/etc /vol/lib /vol/log
+
+
+
+mv /var/lib/mysql /vol/lib/
+mv /etc/mysql/my.cnf  /vol/etc/
+mv /var/log/mysql.log /vol/log/
+
+ln -s /vol/lib/mysql /var/lib/mysql
+ln -s /vol/etc/mysqlc/my.cnf /etc/mysql/my.cnf
+ln -s /vol/log/mysql.log /var/log/mysql.log/
+
+
+php.ini
+safe_mode_gid = on

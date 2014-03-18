@@ -1,0 +1,95 @@
+<?php if($research->users->isLocalAdmin($UID)){
+		$locked=$research->isLocked();
+		if($locked!="Ended" && $locked!="freezed"){
+			if($query->isLocked()==false || $query->isLocked()==$UID){
+				$query->setLocked($UID);
+				$name = $query->getName();	
+?>
+ 				<script type="text/javascript">
+				  /* When the page loads it calls the getEvents function from functions.js with the query id
+				   * parameter. It builds the question list into #questionlist using the
+				   * AjaxAdd/getQuestionList.php. The next function builds up the tabs into the #edit part of
+				   * the page.
+				   * The selector function selects the tab according to its order number.
+				   */
+					  $().ready(function(){
+						  getEvents(<?= $qid ?>);
+						  $("#edit").tabs();
+						  $("#eventList").data("ID",<?= $qid ?>);
+					  });
+					  
+					  function selector(index){
+						$("#edit").tabs("select", index);
+					  }
+					  
+					  function rewind(index){
+					  	$("#edit").tabs( "load", index );
+					  }
+			    </script>
+				  <div id="add_container"> <!-- The PHP uses here the short tag for opening the PHP and echo a variable: <?=$variable ?> -->
+					<div id="navpath"><a href="index.php"> Home </a> >> <a href="displayResearch.php?id=<?= $research_id?>"> <?= $research->getName() ?> </a> >> <a href="displayQuery.php?id=<?=encrypt($qid)?>"> <?= $name ?> </a> >> <a href="#"> Edit questions </a></div>
+					  	<div id="manipquerydiv">
+							<div class="manipheader">
+								<div class="headertext">
+					     		 	<div id="help" onclick="openhelp('editques');">?</div>
+					     		 	<h1>Edit Query Questions</h1>
+					     		 	<hr />
+								</div>
+							</div>   
+							<a href=../content/displayQuery.php?id=<?php echo(encrypt($qid)); ?>><?php echo("$name"); ?></a>
+							<div id="manipcontent">
+							    <div id="events">
+								    <h3>Events:</h3>
+									<p>
+									    <a class="button" href="#" onclick="this.blur();selector(2);fadeaway()"><span>Add new</span></a>
+									</p>
+								    <br />
+								    <br />
+								    <div id="eventList"> <!-- The list of the questions is shown here. -->
+								    </div>
+							    </div>
+							    <!-- The Edit, Copy, Add tabs appear here with the jQuery tabs plugin. -->
+							    <div id="edit" class="smoothness">
+								     	<ul>
+								         	<li><span><a href="#editTab">Edit</a></span></li>
+								         	<li><a href="../AjaxAdd/showCopy.php?copyto=<?= $qid ?>" onClick="fadeaway();">Copy</a></li>
+								         	<li><a href="../AjaxAdd/addQuestion.php?id=<?= $qid ?>" onClick="fadeaway();">Add</a></</li>
+								    	</ul>
+								    	<div id="editTab">
+								    		<h3>Edit:</h3>
+											<div id="addnew"> </div>
+										</div>
+							    </div>
+<div id="visualize">
+  <?php 
+  
+  include("../content/visualizationCheckBox.php");
+
+?>	
+
+</div>
+
+							<div id="q_ready">
+														  
+	
+						<!--<?php echo "<a class=\"button\" href=\"../content/displayQuery.php?id=".encrypt($qid)."\" onclick=\"this.blur();\"><span>Finished</span></a>";?>    -->
+						</div> 
+							</div>  
+						</div>
+				  </div>
+<?php 		}else{
+				echo "<h1>Query is locked,someone else is editing it!</h1>";
+	  		}
+		}else{
+			echo "<h1>Research has ended! Cannot edit it anymore</h1>";
+		}
+	  }
+?>
+<script type="text/javascript">
+	window.onbeforeunload = function(){
+		unlock('<?= encrypt($UID) ?>','<?= encrypt($qid) ?>',2);
+	}
+	window.onunload= function(){
+		unlock('<?= encrypt($UID) ?>','<?= encrypt($qid) ?>',2);
+	}
+</script>

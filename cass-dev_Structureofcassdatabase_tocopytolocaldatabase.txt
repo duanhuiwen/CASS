@@ -1,0 +1,358 @@
+﻿-- MySQL dump 10.11
+--
+-- Host: localhost    Database: cass
+-- ------------------------------------------------------
+-- Server version        5.0.95
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+--
+-- Table structure for table `tbl_answer`
+--
+
+
+DROP TABLE IF EXISTS `tbl_answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_answer` (
+  `answer_id` int(10) NOT NULL auto_increment,
+  `research_id` int(10) NOT NULL,
+  `UID` int(11) NOT NULL,
+  `query_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY  (`answer_id`),
+  KEY `research_id` (`research_id`),
+  KEY `query_id` (`query_id`),
+  KEY `question_id` (`question_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=212107 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_auth`
+--
+
+
+DROP TABLE IF EXISTS `tbl_auth`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_auth` (
+  `UID` int(11) NOT NULL auto_increment,
+  `password` varchar(48) collate utf8_swedish_ci NOT NULL,
+  `su_admin` binary(1) NOT NULL,
+  `username` varchar(64) collate utf8_swedish_ci NOT NULL,
+  `research_owner` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`UID`)
+) ENGINE=MyISAM AUTO_INCREMENT=610 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_fixed`
+--
+
+
+DROP TABLE IF EXISTS `tbl_fixed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_fixed` (
+  `fixed_id` int(11) NOT NULL auto_increment,
+  `research_id` int(11) NOT NULL,
+  `firsttime` time NOT NULL,
+  `interval` time NOT NULL,
+  PRIMARY KEY  (`fixed_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_fixed_times`
+--
+
+
+DROP TABLE IF EXISTS `tbl_fixed_times`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_fixed_times` (
+  `fixedtime_id` int(11) NOT NULL auto_increment,
+  `research_id` int(11) NOT NULL,
+  `query_id` int(11) default NULL,
+  `fixedtime` int(2) default NULL,
+  PRIMARY KEY  (`fixedtime_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=166 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_log`
+--
+
+
+DROP TABLE IF EXISTS `tbl_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_log` (
+  `event_ID` int(11) NOT NULL auto_increment,
+  `event_descr` text collate utf8_swedish_ci NOT NULL,
+  `UID` int(11) NOT NULL,
+  `IP` varchar(32) collate utf8_swedish_ci NOT NULL,
+  `date_time` datetime NOT NULL,
+  PRIMARY KEY  (`event_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_media_answer`
+--
+
+
+DROP TABLE IF EXISTS `tbl_media_answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_media_answer` (
+  `media_id` int(10) NOT NULL auto_increment,
+  `answer_id` int(10) NOT NULL,
+  `media` longblob,
+  `filepath` varchar(80) collate utf8_swedish_ci default NULL,
+  `filename` varchar(40) collate utf8_swedish_ci default NULL,
+  PRIMARY KEY  (`media_id`),
+  UNIQUE KEY `answer_id` (`answer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3412 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_num_answer`
+--
+
+
+DROP TABLE IF EXISTS `tbl_num_answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_num_answer` (
+  `num_id` int(10) NOT NULL auto_increment,
+  `answer_id` int(10) NOT NULL,
+  `num` int(11) NOT NULL,
+  PRIMARY KEY  (`num_id`),
+  UNIQUE KEY `answer_id` (`answer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=182606 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_option`
+--
+
+
+DROP TABLE IF EXISTS `tbl_option`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_option` (
+  `option_id` int(11) NOT NULL auto_increment,
+  `question_id` int(11) NOT NULL,
+  `option` varchar(255) collate utf8_swedish_ci NOT NULL,
+  `superOf` int(10) NOT NULL,
+  `number` int(2) NOT NULL,
+  PRIMARY KEY  (`option_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18765 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_privar`
+--
+
+
+DROP TABLE IF EXISTS `tbl_privar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_privar` (
+  `var_id` int(10) NOT NULL auto_increment,
+  `privateVar` varchar(50) collate utf8_swedish_ci NOT NULL,
+  `subject_id` int(10) NOT NULL,
+  `number` int(10) NOT NULL,
+  PRIMARY KEY  (`var_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1106 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_query`
+--
+
+
+DROP TABLE IF EXISTS `tbl_query`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_query` (
+  `query_id` int(11) NOT NULL auto_increment,
+  `research_id` int(11) NOT NULL,
+  `xml_file` mediumtext collate utf8_swedish_ci,
+  `locked` int(11) NOT NULL,
+  `name` varchar(50) collate utf8_swedish_ci NOT NULL,
+  PRIMARY KEY  (`query_id`),
+  KEY `research_id` (`research_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=498 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_query_times`
+--
+
+
+DROP TABLE IF EXISTS `tbl_query_times`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_query_times` (
+  `qtime_id` int(11) NOT NULL auto_increment,
+  `research_id` int(11) NOT NULL,
+  `query_id` int(11) default NULL,
+  `qtime` varchar(5) collate utf8_swedish_ci default NULL,
+  PRIMARY KEY  (`qtime_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=289 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_question`
+--
+
+
+DROP TABLE IF EXISTS `tbl_question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_question` (
+  `question_id` int(11) NOT NULL auto_increment,
+  `query_id` int(11) NOT NULL,
+  `question` varchar(255) collate utf8_swedish_ci NOT NULL,
+  `question_type` int(11) NOT NULL,
+  `number` int(11) NOT NULL,
+  `category` int(11) NOT NULL,
+  PRIMARY KEY  (`question_id`),
+  KEY `query_id` (`query_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13033 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_research`
+--
+
+
+DROP TABLE IF EXISTS `tbl_research`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_research` (
+  `research_id` int(10) NOT NULL auto_increment,
+  `research_name` varchar(60) collate utf8_swedish_ci NOT NULL,
+  `research_descr` varchar(255) collate utf8_swedish_ci NOT NULL,
+  `data_collection_method` int(11) NOT NULL,
+  `startTime` date default NULL,
+  `endTime` date default NULL,
+  `queriesPerDay` int(2) default NULL,
+  `locked` varchar(7) collate utf8_swedish_ci default NULL,
+  `created` timestamp NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`research_id`),
+  UNIQUE KEY `research_name` (`research_name`)
+) ENGINE=MyISAM AUTO_INCREMENT=231 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_subject`
+--
+
+
+DROP TABLE IF EXISTS `tbl_subject`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_subject` (
+  `subject_id` int(10) NOT NULL auto_increment,
+  `UID` int(10) NOT NULL,
+  `research_id` int(10) NOT NULL,
+  `bt_id` varchar(12) collate utf8_swedish_ci default NULL,
+  `active` bit(1) NOT NULL,
+  PRIMARY KEY  (`subject_id`),
+  KEY `research_id` (`research_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=782 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_text_answer`
+--
+
+
+DROP TABLE IF EXISTS `tbl_text_answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_text_answer` (
+  `text_id` int(10) NOT NULL auto_increment,
+  `answer_id` int(10) NOT NULL,
+  `text` text collate utf8_swedish_ci NOT NULL,
+  PRIMARY KEY  (`text_id`),
+  UNIQUE KEY `answer_id` (`answer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=26036 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_track_fixed`
+--
+
+
+DROP TABLE IF EXISTS `tbl_track_fixed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_track_fixed` (
+  `subject_id` int(11) NOT NULL,
+  `timesanswered` int(2) default NULL,
+  `lastanswer` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`subject_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `tbl_user_rights`
+--
+
+
+DROP TABLE IF EXISTS `tbl_user_rights`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_user_rights` (
+  `research_id` int(11) NOT NULL,
+  `UID` int(11) NOT NULL,
+  `subject` tinyint(1) NOT NULL,
+  `researcher` tinyint(1) NOT NULL,
+  `admin` tinyint(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+-- Dump completed on 2012-06-05  9:45:37

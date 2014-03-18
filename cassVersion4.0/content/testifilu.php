@@ -1,0 +1,166 @@
+<?php
+//header('Content-type:application/xml');
+//header("Content-type:image/jpeg");
+//header("Content-type:audio/x-ms-wma");
+require_once("../common/auth_loginf.php");
+require_once("../common/auth_start.php");
+require("../common/includes.php");
+include("../classes/PresentationLogic/Presentation.php");
+
+
+/*$pr = new Presentation();
+$pr->genPage($menu=false,$right=0,$include="./functionality/index.php",$id=0,$action=0,$a);*/
+/*
+ * 	Writing from database to XML-document
+ */
+/*
+	$doc = new XmlAggregator();
+
+	$xml = $doc->WriteXml('20','11','10');
+	echo $xml;*/
+/*
+ * Writing info in database
+ */
+/*
+$pic = "C:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Winter.gif";
+	$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><surveyAnswer><surveyTime time=\"morning\"/><timestamp stamp=\"2008-05-05 14:29:31\"/><surveyId id=\"17\"/><userName name=\"14\"/><item q_id=\"79\" type=\"1\" answer=\"noni joko\"/><item q_id=\"80\" type=\"2\" answer=\"13\"/><item q_id=\"77\" type=\"7\" answer=\"$pic\"/></surveyAnswer>";
+	$doc = new XmlAggregator();
+	$xmlr = $doc->ReadXml($xml);
+*/
+//call class to write into database
+	/*$answer = new Answer();
+	$answer->addAnswer($xmlr);
+//print
+	$id = $xmlr['surveyId'];
+	$uid = $xmlr['userName'];
+	$time = $xmlr['surveyTime'];
+	$stamp = $xmlr['timestamp'];
+	$items = $xmlr['items'];
+	$countI = count($items);
+
+	echo "ID:$id<br />uid:$uid<br />time:$time<br />timestamp:$stamp<br />Items:$countI <br />";
+//print_r($items[0]);
+	echo "<br />";
+
+	for($i=0;$i<count($items);$i++){
+		$answer = $items[$i]['answer'];
+		$type = $items[$i]['type'];
+		$questionId = $items[$i]['question_id'];
+	
+		echo "answer: $answer<br />type: $type<br />question ID: $questionId<br />";
+	}
+*/
+/*
+ * KUVIA KANTAAN
+ */
+
+/* for($i=0;$i<10000;$i++){
+	$timestamp = date('Y-m-d G:i:s');
+		
+	$pic = "Blue hills.jpg";
+	$vid = "viiidio.jpg";
+	$sound = "recordings.jpg";
+	
+	$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><surveyAnswer><timestamp stamp=\"$timestamp\"/><surveyId id=\"32\"/><userName name=\"3\"/><item q_id=\"264\" type=\"1\" answer=\"Yes it is text\"/><item q_id=\"265\" type=\"2\" answer=\"4\"/><item q_id=\"266\" type=\"3\" answer=\"$sound\"/><item q_id=\"267\" type=\"4\" answer=\"266\"/><item q_id=\"268\" type=\"5\" answer=\"269\"/><item q_id=\"270\" type=\"1\" answer=\"I dont want to\"/><item q_id=\"273\" type=\"7\" answer=\"$pic\"/><item q_id=\"274\" type=\"8\" answer=\"$vid\"/><item q_id=\"275\" type=\"9\" answer=\"1\"/></surveyAnswer>";	
+	$doc = new XmlAggregator();
+	$xmlr = $doc->ReadXml($xml);
+	echo "$i";
+} */
+
+/*
+	$timestamp = date('Y-m-d G:i:s');
+		
+	$pic = "something.jpg";
+	$vid = "dunno.jpg";
+	$sound = "sounds.jpg";
+	
+	$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><surveyAnswer><timestamp stamp=\"$timestamp\"/><surveyId id=\"34\"/><userName name=\"6\"/><item q_id=\"313\" type=\"1\" answer=\"mitäs tässä\"/></surveyAnswer>";	
+	$doc = new XmlAggregator();
+	$xmlr = $doc->ReadXml($xml);
+*/
+
+/*
+$pic = "C:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\efi.gif";
+$t = new DiskFileIO("../","sound/","video/","picture/");
+echo $t->MediaWrite($pic,4,"72");
+*/
+//header('Location:../AjaxAdd/addEvent.php?question=kysymys&questionType=4&questionCat=1&queryid=47&option1=juu&option2=jaa&num=2');
+//header('Location: ../AjaxAdd/unlock.php?uid=10&rid=20');
+//header('Location: ../AjaxAdd/unlock.php?uid=10&id=20&action=freeze');
+//$s = new SubjectSQLQueryer();
+//var_dump($s->getNextQuery(151,30));
+
+
+/*		function writeResearchAnswerTxt2($research_id){
+		//File structure
+		$txtFileHeader = "Research ID\tQuery ID\tQuestion ID\tAnswer ID\tUsername\tTime\tQuestion\tAnswer\tType\n";
+		//Info for file
+		$r = new Research($research_id);
+		$queries = $r->listChildren();
+		$filename = "../temp/Research_".$research_id."_Answers.xls";
+		
+		if(!$file = fopen($filename,'a')){
+			return false;
+		}
+		if(fwrite($file,$txtFileHeader)===FALSE){
+			return false;
+		}
+
+		for($k=0;$k<mysql_numrows($queries);$k++){
+
+			$query_id = mysql_result($queries,$k,'query_id');
+			$queryname = mysql_result($queries,$k,'name');
+			$q = new Query($query_id);
+			$questions = $q->listChildren();
+			
+			for($j=0;$j<mysql_numrows($questions);$j++){
+			
+				$question_id = mysql_result($questions,$j,'question_id');
+				$question = mysql_result($questions,$j,'question');		
+				$type = mysql_result($questions,$j,'question_type');	
+				$que = new Question(0,$question_id);
+				$answers = $que->listChildren();
+				
+				for($i=0;$i<count($answers);$i++){
+				
+					$answer_id = $answers[$i]['answer_id'];
+					$time = $answers[$i]['time'];
+					$answerer = $answers[$i]['UID'];
+					$answer = new Answer($answer_id);
+					
+					if($type==7 || $type==3 || $type==8){					
+						$path = full_url();
+						$replace = "functionality";
+						$path = str_replace($replace,"content",$path);
+						$path = pathinfo($path);
+						$path =  $path['dirname'];
+						$answerText = $path."/showpic.php?picID=".$answer_id;
+					}else{
+						$answerText = strip_tags($answer->getAnswerText());
+						if($type==4 || $type==5){
+							$options = $que->getOptions();
+							for($o=0;$o<count($options);$o++){
+								if($options[$o]['id']==$answerText){
+									$answerText = $options[$o]['option'];
+								}
+							}
+						}
+					}
+					$user = new User($answerer);
+					$username = $user->getName();
+					$txtFile = "$research_id\t$query_id\t$question_id\t$answer_id\t$username\t$time\t$question_number $question\t$answerText\t$type\n";
+
+					if(fwrite($file,$txtFile)===FALSE){
+						return false;
+					}
+				}		
+			}						
+		}
+		fclose($file);
+		return true;
+	}
+*/
+
+
+
+?>

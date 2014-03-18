@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item xmlns:android="http://schemas.android.com/apk/res/android"/>
+<!--
+     This xml file is just a dummy to avoid a common android bug:
+
+	The first xml file in the drawable folder is not usable at times
+-->

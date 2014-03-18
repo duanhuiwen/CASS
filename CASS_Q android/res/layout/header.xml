@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="50dip"
+    android:background="@color/orange"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <!-- Returns to MainListActivity -->
+    <Button
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="right"
+        android:background="@drawable/button_home" />
+
+    <!-- Displays the application name -->
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/about"
+        android:contentDescription="@string/cass_title"
+        android:paddingLeft="10dp"
+        android:src="@drawable/cass_header_title" />
+	
+    <!-- Sends answers to the server -->
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:background="@drawable/button_send" />
+
+</RelativeLayout>
